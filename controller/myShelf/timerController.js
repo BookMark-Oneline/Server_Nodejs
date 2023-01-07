@@ -29,6 +29,8 @@ module.exports.startTimer = async (req, res) => {
   }
 };
   
+
+
   // 타이머 종료
   module.exports.finishTimer = async (req, res) => {
     try {
@@ -51,5 +53,5 @@ module.exports.startTimer = async (req, res) => {
       }
     } catch (err) {
       console.log("Error", err);
-    }
-  };
+    } 
+};

@@ -1,5 +1,3 @@
-
-
 // 현재 유저 now_reading 을 1로 UPDATE
 module.exports.updateOnline = async (connection, user_id) => {
     const updateOnlineQuery = `UPDATE UserInfo SET now_reading=? WHERE user_id=?;`;

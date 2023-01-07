@@ -17,18 +17,23 @@ module.exports.searchBook = (req,res) => {
             res.writeHead(200, {'Content-Type': 'text/json;charset=utf-8'});
             res.end(body);
             const data = JSON.parse(body);
-            const myData = data.items
+            const myData  = JSON.stringify(data.items)
             console.log(myData);
-           // for (var i = 0; i < myData.length; i++) {
+          
+           //for (var i = 0; i < myData.length; i++) {
                 //const title = myData[i].title;
                 //const link = myData[i].link;
-               // const image = myData[i].image;
-               // const author = myData[i].author;
-               // const publisher = myData[i].publisher;
-               // const isbn = myData[i].isbn;
-               // const description = myData[i].description;
-
-        } else {
+                //const image_url = myData[i].image;
+                //const author = myData[i].author;
+                //const publisher = myData[i].publisher;
+                //const isbn = myData[i].isbn;
+                //const description = myData[i].description;
+                //const result = [myData[i].title,image_url,author,description];
+             
+                
+       // }
+        
+    } else {
             res.status(response.statusCode).end();
             console.log('error = ' + response.statusCode);
         }

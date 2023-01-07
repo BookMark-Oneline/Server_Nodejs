@@ -14,3 +14,15 @@ module.exports.selectBookDetail = async(connection, book_id) => {
    
 }
 
+
+module.exports.registerBookInfo = async (connection,registerBookInfoParams) => {
+    //, register, status 없이,,? 
+    const registerBookInfoQuery = `INSERT INTO BookInfo(user_id, title, author, publisher, img_url) VALUES (?, ?, ?, ?, ?);`;
+    const registerBookInfoRow = await connection.query(registerBookInfoQuery,registerBookInfoParams)
+    
+    console.log(registerBookInfoRow);
+
+    return registerBookInfoRow;
+  };
+
+

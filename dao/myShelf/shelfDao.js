@@ -1,4 +1,6 @@
 
+
+
 module.exports.selectBooks = async (connection, user_id) =>{
     const selectBookQuery = `SELECT user_id, book_id, title, img_url, author FROM BookInfo WHERE user_id = ?;`;
     const [shelfRows] = await connection.query(selectBookQuery, user_id);
@@ -14,15 +16,5 @@ module.exports.selectBookDetail = async(connection, book_id) => {
    
 }
 
-
-module.exports.registerBookInfo = async (connection,registerBookInfoParams) => {
-    //, register, status 없이,,? 
-    const registerBookInfoQuery = `INSERT INTO BookInfo(user_id, title, author, publisher, img_url) VALUES (?, ?, ?, ?, ?);`;
-    const registerBookInfoRow = await connection.query(registerBookInfoQuery,registerBookInfoParams)
-    
-    console.log(registerBookInfoRow);
-
-    return registerBookInfoRow;
-  };
 
 

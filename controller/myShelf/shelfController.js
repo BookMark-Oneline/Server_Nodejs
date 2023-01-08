@@ -11,12 +11,12 @@ module.exports.findMyAllBooks = async(req,res)=> {
             
         }  else {
             const myBooks = await retrieveBookList(user_id)
-            console.log(myBooks)
-            
+            return res.send(myBooks);
         }
         
     } catch(err) {
         console.log("Error" , err);
+        throw err;
     }
     
 };
@@ -28,9 +28,10 @@ module.exports.searchBookDetail = async(req,res) => {
             res.send(baseResponse.BOOK_BOOKID_EMPTY)
         } else {
             const bookDetail = await retrieveBookDetail(book_id);
-            res.send(bookDetail);
+            return res.send(bookDetail);
         }
     } catch(err) {
         console.log("Error", err)
+        throw err;
     }
 }

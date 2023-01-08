@@ -11,6 +11,7 @@ module.exports.startTimer = async (req, res) => {
       res.redirect("/");
     } else {
       // 현재 유저의 접속 상태를 True 로 설정
+      // 최초 유저의 접속 상태는 회원 가입 시  0으로 설정. 그래야 독서중일때 1 로 바뀜.
       const Online = await timerService.retrieveUserOnline(user_id);
       console.log(Online);
       // 현재 선택된 책의 총 독서시간 응답데이터로 전송

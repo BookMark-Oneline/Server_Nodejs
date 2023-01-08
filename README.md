@@ -14,6 +14,6 @@ localhost:3000/1/1 전송 시 데이터 베이스가 인식하기를 book_id = '
 
 정리하자면,
 
-update sql문 작성 시 update 시키는 것이 body로 부터 나와 Provider / Service 단에서 변수명을 하나로 묶어줘서 전달 해줘야 하고 ,
+update sql문 작성 시 update 시키는 것이 body로 부터 나오면  Provider / Service 단에서 변수명을 하나로 묶어줘서 전달 해줘야 하고 ,
 내가 업데이트 시켜주는 속성이 body로 부터 받는게 아니라면 묶어서 전달하지 말것.
  

@@ -1,6 +1,6 @@
 # Server_Nodejs
 
-## 주의사항
+## SQL문 작성  주의사항
 
 finishTimer 의 경우  total_reading_time, current_reading_page 변수를 body 로 전달해주기 때문에 Service 단에서 
 const updateBookInfoParams = [total_reading_time, current_reading_page,  user_id, book_id]; 와 같이 하나로 묶어줘도 상관이 없음.

@@ -5,7 +5,7 @@ const { retrieveBookList , retrieveBookDetail} = require('../../provider/myShelf
 // /shelf/:user_id  -> 서재 내 모든 책들 조회 API
 module.exports.findMyAllBooks = async(req,res)=> {
     try {
-        const { user_id }= req.params;
+        const { user_id } = req.params;
         if(!user_id) {
             res.send(response(baseResponse.USER_USERID_EMPTY))
             
@@ -16,7 +16,8 @@ module.exports.findMyAllBooks = async(req,res)=> {
         
     } catch(err) {
         console.log("Error" , err);
-        throw err;
+        //오류 메시지 반환.
+        return res.status(res.statusCode).send(err._message);
     }
     
 };
@@ -32,6 +33,6 @@ module.exports.searchBookDetail = async(req,res) => {
         }
     } catch(err) {
         console.log("Error", err)
-        throw err;
+        return res.status(res.statusCode).send(err._message);
     }
 }

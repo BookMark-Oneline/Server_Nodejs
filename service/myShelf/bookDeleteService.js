@@ -7,10 +7,11 @@ const baseResponse = require('../../config/baseResponse');
 
 exports.deleteBook = async (book_id, user_id) => {
 
+    const deleteBookInfoParams = [book_id, user_id];
     const connection = await pool.getConnection(async (conn) => conn);
-
-    const bookIdResult = await bookDao.deleteBookInfo(connection,book_id,user_id);
+    const bookIdResult = await bookDao.deleteBookInfo(connection,deleteBookInfoParams);
     
     connection.release();
+
     return response(baseResponse.SUCCESS);
 }

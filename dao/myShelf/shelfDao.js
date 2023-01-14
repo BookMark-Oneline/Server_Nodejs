@@ -2,7 +2,11 @@
 
 
 module.exports.selectBooks = async (connection, user_id) =>{
-    const selectBookQuery = `SELECT book_id FROM BookShelf WHERE user_id = ?;`;
+    const selectBookQuery =`SELECT BookInfo.book_id, BookInfo.title, BookInfo.author, BookInfo.img_url
+    FROM BookInfo
+    INNER JOIN BookShelf
+    ON BookShelf.book_Id = BookInfo.book_Id
+    WHERE BookShelf.user_id = ?;`;
     const [shelfRows] = await connection.query(selectBookQuery, user_id);
     return shelfRows;
 

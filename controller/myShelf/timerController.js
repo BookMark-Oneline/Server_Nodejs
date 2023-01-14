@@ -1,6 +1,5 @@
 const timerService = require("../../service/myShelf/timerService");
-const timerProvider = require('../../provider/myShelf/timerProvider')
-
+const timerProvider = require("../../provider/myShelf/timerProvider");
 
 module.exports.startTimer = async (req, res) => {
   try {
@@ -29,30 +28,29 @@ module.exports.startTimer = async (req, res) => {
     console.log("Error", err);
   }
 };
-  
 
+// 타이머 종료
+module.exports.finishTimer = async (req, res) => {
+  try {
+    const { user_id, book_id } = req.params;
+    const { total_reading_time, current_reading_page } = req.body;
 
-  // 타이머 종료
-  module.exports.finishTimer = async (req, res) => {
-    try {
-      const { user_id, book_id } = req.params;
-      const { total_reading_time, current_reading_page } = req.body
-      
-      if (!user_id) {
-        res.send("This is not proper id");
-        res.redirect("/");
-      } else {
-        // 현재 유저의 접속 상태를 False 로 설정
-        const Offline = await timerService.retrieveUserOffline(user_id);
-        // 현재 유저가 선택한 책의 총 독서시간과 현재 읽고 있는 페이지 업데이트
-        const BookInfo = await timerService.editBookInfo(
-          total_reading_time, 
-          current_reading_page, 
-          user_id, book_id);
-          console.log(BookInfo);
-        return res.send(BookInfo)
-      }
-    } catch (err) {
-      console.log("Error", err);
-    } 
+    if (!user_id) {
+      res.send("This is not proper id");
+      res.redirect("/");
+    } else {
+      // 현재 유저의 접속 상태를 False 로 설정
+      const Offline = await timerService.retrieveUserOffline(user_id);
+      // 현재 유저가 선택한 책의 총 독서시간과 현재 읽고 있는 페이지 업데이트
+      const BookInfo = await timerService.editBookInfo(
+        total_reading_time,
+        current_reading_page,
+        book_id
+      );
+      console.log(BookInfo);
+      return res.send(BookInfo);
+    }
+  } catch (err) {
+    console.log("Error", err);
+  }
 };

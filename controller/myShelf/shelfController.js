@@ -6,33 +6,48 @@ const { retrieveBookList , retrieveBookDetail} = require('../../provider/myShelf
 module.exports.findMyAllBooks = async(req,res)=> {
     try {
         const { user_id } = req.params;
-        if(!user_id) {
-            res.send(response(baseResponse.USER_USERID_EMPTY))
-            
-        }  else {
-            const myBooks = await retrieveBookList(user_id)
-            return res.send(myBooks);
+        const myBooks = await retrieveBookList(user_id)
+        if(myBooks.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Invalid book_id'
+            });
+
+        } else {
+        return res.send(myBooks);
         }
+        
         
     } catch(err) {
         console.log("Error" , err);
         //오류 메시지 반환.
-        return res.status(res.statusCode).send(err._message);
+        return res.status(500).json({
+            status: 'error',
+            message: err.message
+        });
     }
     
 };
 
+// shelf/book/:bookd_id -> 각각의 책 별 세부사항 조회 API
 module.exports.searchBookDetail = async(req,res) => {
     try{
         const { book_id } = req.params;
-        if (!book_id) {
-            res.send(baseResponse.BOOK_BOOKID_EMPTY)
+        const bookDetail = await retrieveBookDetail(book_id);
+        if(bookDetail.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Invalid book_id'
+            });
+
         } else {
-            const bookDetail = await retrieveBookDetail(book_id);
             return res.send(bookDetail);
         }
+
     } catch(err) {
         console.log("Error", err)
-        return res.status(res.statusCode).send(err._message);
-    }
+        return res.status(500).json({
+            status: 'error',
+            message: err.message
+        });    }
 }

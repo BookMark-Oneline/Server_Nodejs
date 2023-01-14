@@ -3,7 +3,7 @@ const bookService = require("../../service/myShelf/bookRegisterService");
 
 module.exports.registerBooks = async (req, res) => {
     try {
-        const { user_id } =req.params; 
+        const { user_id } = req.params; 
         const { title, author, publisher, img_url }  = req.body;
   
         const registerResponse = await bookService.registerBook(
@@ -19,6 +19,7 @@ module.exports.registerBooks = async (req, res) => {
       
       }
     catch (err) {
+  
       console.log("Error", err);
     }
   };

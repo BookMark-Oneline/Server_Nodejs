@@ -31,6 +31,7 @@ module.exports.registerBooks = async (req, res) => {
       
       }
     catch (err) {
+  
       console.log("Error", err);
       //오류 메시지 반환.
       return res.status(res.statusCode).send(err._message);

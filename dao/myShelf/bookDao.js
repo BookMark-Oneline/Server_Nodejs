@@ -1,6 +1,7 @@
 
 
 module.exports.registerBookInfo = async (connection,registerBookInfoParams) => {
+
     try{
       const registerBookInfoQuery = 'INSERT INTO BookInfo (book_id, title, img_url, author, publisher, isbn, total_reading_time, current_reading_page, status, ave_reading_page, ave_reading_time) VALUES (?, ?, ?, ?, ?, ?, 0, 0, 1, 0, 0);';
 
@@ -32,6 +33,7 @@ module.exports.registerBookShelf = async (connection, registerBookShelfParams) =
     
 };
 
+
   module.exports.deleteBookInfo = async (connection, deleteBookInfoParams) => {    // Params
     try {
       const deleteBookInfoQuery = `UPDATE BookInfo SET status=? WHERE book_id=? and user_id=?;`;
@@ -45,3 +47,5 @@ module.exports.registerBookShelf = async (connection, registerBookShelfParams) =
     }
     
 };
+
+

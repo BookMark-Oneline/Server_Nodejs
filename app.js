@@ -14,16 +14,6 @@ const methodOverride = require("method-override");
 
 
 
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
-
-const webpackConfig = {
-    plugins: [
-        new CaseSensitivePathsPlugin(),
-        // other plugins ...
-    ],
-    // other webpack config ...
-};
-
 app.listen(3000, () => {
   console.log("Connected!!!");
 });

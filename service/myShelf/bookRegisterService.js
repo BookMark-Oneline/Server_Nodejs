@@ -1,8 +1,7 @@
 const pool = require("../../config/database");
 const bookDao = require("../../dao/myShelf/bookDao");
 const { errResponse, response } = require("../../config/response");
-const baseResponse = require('../../config/baseResponse');
-
+const baseResponse = require("../../config/baseResponse");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리
 exports.registerBook = async (

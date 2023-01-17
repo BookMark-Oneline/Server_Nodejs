@@ -12,6 +12,7 @@ module.exports.selectBooks = async (connection, user_id) =>{
 
 }
 
+
 module.exports.selectBookDetail = async(connection, book_id) => {
    
     const selectBookDetailQuery = `SELECT 
@@ -30,6 +31,3 @@ module.exports.selectBookDetail = async(connection, book_id) => {
 
    
 }
-
-
-

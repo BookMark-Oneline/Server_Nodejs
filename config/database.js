@@ -2,7 +2,6 @@ require("dotenv").config();
 const mysql = require("mysql2/promise");
 //const mysql = require('mysql');
 
-<<<<<<< HEAD
  const config = {
    host: `${process.env.DB_HOST}`,
    user: `${process.env.DB_USER}`,
@@ -21,16 +20,6 @@ const mysql = require("mysql2/promise");
   // https://zionh.tistory.com/26 참고
   // multipleStatements: true
   
-=======
-const config = {
-  host: `${process.env.DB_HOST}`,
-  user: `${process.env.DB_USER}`,
-  port: `3306`,
-  password: `${process.env.DB_PASS}`,
-  database: `${process.env.DB_NAME}`,
-};
-
->>>>>>> ddd718eebbd63f35bd2d371592ea506d3c88b06b
 const pool = mysql.createPool(config);
 
 module.exports = pool;

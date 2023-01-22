@@ -7,3 +7,4 @@ exports.retrieveUserId = async (user_id) => {
   connection.release();
   return userIdResult[0];
 };
+

@@ -35,3 +35,26 @@ module.exports.changeLike = async (req, res) => {
     console.log("Error", err);
   }
 };
+
+// 공지 등록
+module.exports.announcement = async (req, res) => {
+  try {
+    const club_id = parseInt(req.params.club_id);
+    const user_id = parseInt(req.body.user_id);
+    const club_post_id = parseInt(req.body.club_post_id);
+    if (!user_id) {
+      res.send("This is not proper id");
+      res.redirect("/");
+    } else {
+      const registerAnnouncement =
+        await postService.retrieveRegisterAnnouncement(
+          club_id,
+          user_id,
+          club_post_id
+        );
+      return res.send(SUCCESS);
+    }
+  } catch (err) {
+    console.log("Error", err);
+  }
+};

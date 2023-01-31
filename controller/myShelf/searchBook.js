@@ -26,9 +26,17 @@ module.exports.searchBook =  async(req,res) => {
         if(!error && response.statusCode == 200) {
             const mydata = JSON.parse(body);
             const myData = mydata.items;
-            res.json({ userId, myData });
+            if(myData.length === 0) {
+                return res.status(404).json({
+                    status: 'error',
+                    message: 'Invalid ISBN'
+                });
+            } else {
+                res.json({ userId, myData });
 
-
+            }
+            
+           
     } else {
             console.log(error)
             res.status(response.statusCode).send(response.message);

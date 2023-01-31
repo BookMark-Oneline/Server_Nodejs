@@ -21,9 +21,8 @@ exports.registerBook = async (
       publisher,
       isbn,
     ]);
-
-  
     Bookconnection.release();
+    console.log(bookReigsterResult);
   
     return response(baseResponse.SUCCESS);
   };

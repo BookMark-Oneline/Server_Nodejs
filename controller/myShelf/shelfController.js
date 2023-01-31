@@ -10,7 +10,7 @@ module.exports.findMyAllBooks = async(req,res)=> {
         if(myBooks.length === 0) {
             return res.status(404).json({
                 status: 'error',
-                message: 'Invalid book_id'
+                message: 'Invalid user_id'
             });
 
         } else {

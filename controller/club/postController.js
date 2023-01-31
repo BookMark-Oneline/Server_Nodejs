@@ -58,3 +58,25 @@ module.exports.announcement = async (req, res) => {
     console.log("Error", err);
   }
 };
+
+// 댓글 작성
+module.exports.comment = async (req, res) => {
+  try {
+    const user_id = parseInt(req.body.user_id);
+    const club_post_id = parseInt(req.params.club_post_id);
+    const comment_content_text = req.body.comment_content_text;
+    if (!user_id) {
+      res.send("This is not proper id");
+      res.redirect("/");
+    } else {
+      const addComment = await postService.retrieveAddComment(
+        user_id,
+        club_post_id,
+        comment_content_text
+      );
+      return res.send(SUCCESS);
+    }
+  } catch (err) {
+    console.log("Error", err);
+  }
+};

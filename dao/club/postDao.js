@@ -36,3 +36,19 @@ module.exports.registerAnnouncement = async (
   );
   return registerAnnouncementRow[0];
 };
+
+// 댓글 작성
+module.exports.addComment = async (
+  connection,
+  user_id,
+  club_post_id,
+  comment_content_text
+) => {
+  const addCommentQuery = `INSERT INTO ClubComment (club_post_id, comment_content_text, writer_id) VALUES(?, ?, ?);`;
+  const addCommentRow = await connection.query(addCommentQuery, [
+    club_post_id,
+    comment_content_text,
+    user_id,
+  ]);
+  return addCommentRow[0];
+};

@@ -4,6 +4,7 @@ const {
   insertLike,
   deleteLike,
   registerAnnouncement,
+  addComment,
 } = require("../../dao/club/postDao");
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
@@ -42,4 +43,22 @@ exports.retrieveRegisterAnnouncement = async (
   connection.release();
 
   return registerAnnouncementResult[0];
+};
+
+// 댓글 작성
+exports.retrieveAddComment = async (
+  user_id,
+  club_post_id,
+  comment_content_text
+) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const addCommentResult = await addComment(
+    connection,
+    user_id,
+    club_post_id,
+    comment_content_text
+  );
+  connection.release();
+
+  return addCommentResult[0];
 };

@@ -5,12 +5,13 @@ const {
   deleteLike,
   registerAnnouncement,
   addComment,
+  addPost,
 } = require("../../dao/club/postDao");
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
 
 // 좋아요 누르기
-exports.retrieveInsertLike = async (club_post_id, user_id) => {
+module.exports.retrieveInsertLike = async (club_post_id, user_id) => {
   const connection = await pool.getConnection(async (conn) => conn);
   const insertLikeResult = await insertLike(connection, club_post_id, user_id);
   connection.release();
@@ -19,7 +20,7 @@ exports.retrieveInsertLike = async (club_post_id, user_id) => {
 };
 
 // 좋아요 취소
-exports.retrieveDeleteLike = async (club_post_id, user_id) => {
+module.exports.retrieveDeleteLike = async (club_post_id, user_id) => {
   const connection = await pool.getConnection(async (conn) => conn);
   const deleteLikeResult = await deleteLike(connection, club_post_id, user_id);
   connection.release();
@@ -28,7 +29,7 @@ exports.retrieveDeleteLike = async (club_post_id, user_id) => {
 };
 
 // 공지 등록
-exports.retrieveRegisterAnnouncement = async (
+module.exports.retrieveRegisterAnnouncement = async (
   club_id,
   user_id,
   club_post_id
@@ -46,7 +47,7 @@ exports.retrieveRegisterAnnouncement = async (
 };
 
 // 댓글 작성
-exports.retrieveAddComment = async (
+module.exports.retrieveAddComment = async (
   user_id,
   club_post_id,
   comment_content_text
@@ -61,4 +62,29 @@ exports.retrieveAddComment = async (
   connection.release();
 
   return addCommentResult[0];
+};
+
+// 게시물 작성
+
+module.exports.retrieveAddPost = async (
+  user_id,
+  club_id,
+  club_post_title,
+  post_content_text,
+  img_status,
+  img_url
+) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const addPostResult = await addPost(
+    connection,
+    user_id,
+    club_id,
+    club_post_title,
+    post_content_text,
+    img_status,
+    img_url
+  );
+  connection.release();
+
+  return addPostResult[0];
 };

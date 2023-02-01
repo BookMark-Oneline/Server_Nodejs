@@ -22,7 +22,6 @@ module.exports.deleteLike = async (connection, club_post_id, user_id) => {
 
 // 특정 게시글을 공지로 등록하기
 // club_post_id 게시물을 이 게시물의 club_id 모임의 announcement_id 로 변경
-// 공지로 등록하려는 유저가 모임의 생성자인지 한번 더 확인
 module.exports.registerAnnouncement = async (
   connection,
   club_id,
@@ -51,4 +50,28 @@ module.exports.addComment = async (
     user_id,
   ]);
   return addCommentRow[0];
+};
+
+// 게시물 작성
+module.exports.addPost = async (
+  connection,
+  user_id,
+  club_id,
+  club_post_title,
+  post_content_text,
+  img_status,
+  img_url
+) => {
+  const addPostQuery = `INSERT INTO ClubPost (club_id, club_post_title, writer_id, post_content_text, img_status, like_num, comment_num, img_url) VALUES (?,?,?,?,?,?,?,?);`;
+  const addPostRow = await connection.query(addPostQuery, [
+    club_id,
+    club_post_title,
+    user_id,
+    post_content_text,
+    img_status,
+    0,
+    0,
+    img_url,
+  ]);
+  return addPostRow[0];
 };

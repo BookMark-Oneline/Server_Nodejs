@@ -6,6 +6,10 @@ const {
   retrieveAddComment,
   retrieveAddPost,
 } = require("../../service/club/postService");
+const {
+  retrieveViewPost,
+  retrieveViewPostComment,
+} = require("../../provider/club/postProvider");
 
 // 좋아요 상태를 변경 ( 1 <-> 0 )
 module.exports.changeLike = async (req, res) => {
@@ -74,7 +78,6 @@ module.exports.comment = async (req, res) => {
         club_post_id,
         comment_content_text
       );
-      console.log(addComment);
       res.send(SUCCESS);
     }
   } catch (err) {
@@ -107,6 +110,27 @@ module.exports.post = async (req, res) => {
         img_url
       );
       res.send(SUCCESS);
+    }
+  } catch (err) {
+    console.log("Error", err);
+  }
+};
+
+// 게시물 & 댓글 보기
+module.exports.viewPost = async (req, res) => {
+  try {
+    const club_post_id = parseInt(req.params.club_post_id);
+    if (!club_post_id) {
+      res.send("Invalid club_post_id");
+      res.redirect("/");
+    } else {
+      const viewPost = await retrieveViewPost(club_post_id);
+      const CommentData = await retrieveViewPostComment(club_post_id);
+      //console.log(viewPost);
+      //console.log(viewPostComment);
+      console.log(Object.assign(viewPost, { CommentData }));
+      result = Object.assign(viewPost, { CommentData });
+      res.send(result);
     }
   } catch (err) {
     console.log("Error", err);

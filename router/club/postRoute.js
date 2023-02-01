@@ -9,5 +9,5 @@ router.route("/comment/:club_post_id").post(postController.comment);
 router
   .route("/register/:club_id")
   .post(imageUploader.single("img"), postController.post);
-
+router.route("/:club_post_id").get(postController.viewPost);
 module.exports = router;

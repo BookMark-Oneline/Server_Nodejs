@@ -6,6 +6,8 @@ const {
   retrieveAddComment,
   retrieveAddPost,
   retrieveAddCommentCount,
+  retrieveAddLikeCount,
+  retrieveSubLikeCount,
 } = require("../../service/club/postService");
 const {
   retrieveViewPost,
@@ -28,11 +30,13 @@ module.exports.changeLike = async (req, res) => {
       // like_status 가 0 이라면 좋아요 누르기
       if (like_status == 0) {
         const pressLike = await retrieveInsertLike(club_post_id, user_id);
+        const addLikeCount = await retrieveAddLikeCount(club_post_id);
         return res.send(SUCCESS);
       }
       // like_status 가 1 이라면 좋아요 취소
       else {
         const cancelLike = await retrieveDeleteLike(club_post_id, user_id);
+        const subLikeCount = await retrieveSubLikeCount(club_post_id);
         res.send(SUCCESS);
       }
     }

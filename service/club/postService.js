@@ -7,6 +7,8 @@ const {
   addComment,
   addPost,
   addCommentCount,
+  addLikeCount,
+  subLikeCount,
 } = require("../../dao/club/postDao");
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
@@ -20,6 +22,15 @@ module.exports.retrieveInsertLike = async (club_post_id, user_id) => {
   return insertLikeResult[0];
 };
 
+// 좋아요 개수 +1
+module.exports.retrieveAddLikeCount = async (club_post_id) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const addLikeCountResult = await addLikeCount(connection, club_post_id);
+  connection.release();
+
+  return addLikeCountResult[0];
+};
+
 // 좋아요 취소
 module.exports.retrieveDeleteLike = async (club_post_id, user_id) => {
   const connection = await pool.getConnection(async (conn) => conn);
@@ -27,6 +38,15 @@ module.exports.retrieveDeleteLike = async (club_post_id, user_id) => {
   connection.release();
 
   return deleteLikeResult[0];
+};
+
+// 좋아요 개수 -1
+module.exports.retrieveSubLikeCount = async (club_post_id) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const subLikeCountResult = await subLikeCount(connection, club_post_id);
+  connection.release();
+
+  return subLikeCountResult[0];
 };
 
 // 공지 등록

@@ -9,6 +9,16 @@ module.exports.insertLike = async (connection, club_post_id, user_id) => {
   return insertLikeRow[0];
 };
 
+// 좋아요 개수 +1
+module.exports.addLikeCount = async (connection, club_post_id) => {
+  const addLikeCountQuery = `UPDATE ClubPost SET like_num = like_num + 1 WHERE club_post_id = ?`;
+  const addLikeCountRow = await connection.query(
+    addLikeCountQuery,
+    club_post_id
+  );
+  return addLikeCountRow[0];
+};
+
 // 좋아요 취소하기
 // like_status 가 1인 경우 user_id 랑 club_post_id 로 조회해서 그 데이터 PostLike 에서 삭제
 module.exports.deleteLike = async (connection, club_post_id, user_id) => {
@@ -18,6 +28,16 @@ module.exports.deleteLike = async (connection, club_post_id, user_id) => {
     user_id,
   ]);
   return deleteLikeRow[0];
+};
+
+// 좋아요 개수 -1
+module.exports.subLikeCount = async (connection, club_post_id) => {
+  const subLikeCountQuery = `UPDATE ClubPost SET like_num = like_num - 1 WHERE club_post_id = ?`;
+  const subLikeCountRow = await connection.query(
+    subLikeCountQuery,
+    club_post_id
+  );
+  return subLikeCountRow[0];
 };
 
 // 특정 게시글을 공지로 등록하기
@@ -50,6 +70,16 @@ module.exports.addComment = async (
     user_id,
   ]);
   return addCommentRow[0];
+};
+
+// 댓글 개수 +1
+module.exports.addCommentCount = async (connection, club_post_id) => {
+  const addCommentCountQuery = `UPDATE ClubPost SET comment_num = comment_num + 1 WHERE club_post_id = ?;`;
+  const addCommentCountRow = await connection.query(
+    addCommentCountQuery,
+    club_post_id
+  );
+  return addCommentCountRow[0];
 };
 
 // 게시물 작성

@@ -7,9 +7,14 @@ const { findClubSetting,
         findRequestingMembers, 
         approvalToJoinRequest,
         declineToJoinRequest,
-        postJoinRequest } = require('../../controller/club/postController');
+        postJoinRequest } = require('../../controller/club/clubController');
+const { imgUpload } = require('../../utils/middelware');
 
-const { imgUpload } = require('../../middelware');      
+// JWT Verify.
+//const { authJWT } = require('../../config/auth');
+// Redis Cache.
+//const { get } = require('../../utils/cache');
+
 
 router.route('/setting/:club_id').get(findClubSetting);
 router.route('/register').post(imgUpload.single("club_img_url"), postNewClub);

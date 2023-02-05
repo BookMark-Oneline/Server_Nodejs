@@ -1,11 +1,12 @@
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
 const pool = require('../../config/database');
-const { updateClubSettingInfo, insertClubInfo, insertUserRequest, updateUserStatusInfo, deleteUserStatusInfo } = require('../../dao/club/postDao');
+const { updateClubSettingInfo, insertClubInfo, insertUserRequest, updateUserStatusInfo, deleteUserStatusInfo } = require('../../dao/club/clubDao');
 
 
 
 module.exports.editClubSetting = async ( 
+
     club_name, 
     club_img_url, 
     club_invite_option,

@@ -1,6 +1,7 @@
 const multer = require('multer');
 const multerS3 = require('multer-s3')
-const aws = require('aws-sdk')
+const aws = require('aws-sdk');
+const redisClient = require('../config/redis');
 
 //원격서버에서만 multer S3가 적용되되고, 로컬에서는 로컬 스토리지에 저장.
 //const isRemoteServer = process.env.NODE_ENV === "production"
@@ -31,4 +32,5 @@ module.exports.imgUpload = multer({
   },
   storage: s3ImageUploader,
 });
+
 

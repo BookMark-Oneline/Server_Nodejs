@@ -1,5 +1,5 @@
-const { retrieveClubSetting, findClub, findUser, retrieveRequestingMembers } = require("../../provider/club/postProvider");
-const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus } = require("../../service/club/postService");
+const { retrieveClubSetting, findClub, findUser, retrieveRequestingMembers } = require("../../provider/club/clubProvider");
+const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus } = require("../../service/club/clubService");
 
 //현재 클럽 설정 상태 조회.
 module.exports.findClubSetting = async (req,res) => {

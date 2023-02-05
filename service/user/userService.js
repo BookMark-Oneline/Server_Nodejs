@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { insertNewUserInfo } = require('../../dao/user/userDao');
 const { userCheck,passwordCheck } = require('../../provider/user/userProvider');
+const { rejects } = require("assert");
+const { resolve } = require("path");
 
 module.exports.createUser = async (
     name, 
@@ -57,12 +59,18 @@ module.exports.postSignIn = async(name, password) => {
             userId: user[0].user_id,
 
         },
-        
         //비밀키
         process.env.JWT_SECRET,
         {
             expiresIn: "365d",
             subject: "userInfo",
+        },
+        (err, token) => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(token);
+            }
         }
     );
     return response(baseResponse.SUCCESS, { 'userId' : user[0].user_id, 'jwt' : token });

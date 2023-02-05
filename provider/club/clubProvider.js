@@ -1,5 +1,5 @@
 const pool = require('../../config/database');
-const { selectClubSetting, selectClub, selectUser, selectRequestingMembersInfo } = require('../../dao/club/postDao');
+const { selectClubSetting, selectClub, selectUser, selectRequestingMembersInfo } = require('../../dao/club/clubDao');
 
 
 

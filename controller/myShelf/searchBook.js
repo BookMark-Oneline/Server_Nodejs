@@ -2,7 +2,7 @@
 const { errResponse, response } = require("../../config/response");
 const  baseResponse = require( "../../config/baseResponse");
 const { retrieveUserId } = require('../../provider/myShelf/searchBookProvider');
-
+const { set } = require('../../config/redis');
 const client_id = `${process.env.client_id}`
 const client_secret = `${process.env.client_secret}`
 
@@ -32,7 +32,9 @@ module.exports.searchBook =  async(req,res) => {
                     message: 'Invalid ISBN'
                 });
             } else {
-                res.json({ userId, myData });
+                // 데이터 캐싱하고 response.
+                set(req.originalUrl, myData);
+                return res.status(200).json({ userId, myData });
 
             }
             

@@ -4,6 +4,8 @@ const regexEmail = require("regex-email");
 const { findAlreadyUser,userCheck } = require('../../provider/user/userProvider');
 const { createUser, postSignIn } = require('../../service/user/userService')
 const bcrypt = require('bcrypt');
+//const jwt = require('../../auth/auth-jwt');
+const redisClient = require('../../config/redis');
 
 module.exports.postRegister = async (req,res) => {
     const { name, user_name, email, introduce_message, password} = req.body;
@@ -45,37 +47,38 @@ module.exports.postRegister = async (req,res) => {
 }
 
 module.exports.postLogin = async (req,res) => {
-    try {
+try {
     const {name , password } = req.body;
-
     const loginResponse = await postSignIn(name, password);
-    const user = await userCheck(name);
 
-    if(loginResponse.result) {
-        req.session.loggedIn = true;
-        req.session.user = user;
+    if(loginResponse) { // id,pw가 일치한다면,
+        //access token과 refresh token 발급.
+        const accessToken  = jwt.sign(user);
+        const refreshToken = jwt.refresh();
 
-        req.session.save((error) => {
-            console.log(req.session);
-            if (error) {
-              console.error(error);
-            }
+        // 발급한 refresh token을 redis에 user_id를 key값으로 지정해 저장.
+        redisClient.set(user_id, refreshToken);
+        
+        res.status(200).send({ // client에게 토큰 모두를 반환합니다.
+            ok: true,
+            data: {
+              accessToken,
+              refreshToken,
+            },
           });
-    } else {
-        return res.status(400).json({ message: 'Login Failed.'})
-    }
-
-    return res.status(200).send(loginResponse);
- 
-
-    } catch(err) {
+        } else {
+          res.status(401).send({
+            ok: false,
+            message: 'password is incorrect',
+          });
+        }
+    } catch (err) {
         console.log("Err", err);
         return res.status(500).send({
             status : "error",
             message : err.message,
         })
-    }
-
+  };
 }
 
 module.exports.logout = async(req,res) => {

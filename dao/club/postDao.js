@@ -52,6 +52,16 @@ module.exports.addComment = async (
   return addCommentRow[0];
 };
 
+// 댓글 개수 +1
+module.exports.addCommentCount = async (connection, club_post_id) => {
+  const addCommentCountQuery = `UPDATE ClubPost SET comment_num = comment_num + 1 WHERE club_post_id = ?;`;
+  const addCommentCountRow = await connection.query(
+    addCommentCountQuery,
+    club_post_id
+  );
+  return addCommentCountRow[0];
+};
+
 // 게시물 작성
 module.exports.addPost = async (
   connection,

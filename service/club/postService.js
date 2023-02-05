@@ -6,6 +6,7 @@ const {
   registerAnnouncement,
   addComment,
   addPost,
+  addCommentCount,
 } = require("../../dao/club/postDao");
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
@@ -64,8 +65,16 @@ module.exports.retrieveAddComment = async (
   return addCommentResult[0];
 };
 
-// 게시물 작성
+// 댓글 개수 +1
+module.exports.retrieveAddCommentCount = async (club_post_id) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const addCommentCountResult = await addCommentCount(connection, club_post_id);
+  connection.release();
 
+  return addCommentCountResult[0];
+};
+
+// 게시물 작성
 module.exports.retrieveAddPost = async (
   user_id,
   club_id,

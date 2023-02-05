@@ -5,6 +5,7 @@ const {
   retrieveRegisterAnnouncement,
   retrieveAddComment,
   retrieveAddPost,
+  retrieveAddCommentCount,
 } = require("../../service/club/postService");
 const {
   retrieveViewPost,
@@ -78,6 +79,8 @@ module.exports.comment = async (req, res) => {
         club_post_id,
         comment_content_text
       );
+      // comment_num(댓글 개수) +1 증가
+      const addCommentCount = await retrieveAddCommentCount(club_post_id);
       res.send(SUCCESS);
     }
   } catch (err) {

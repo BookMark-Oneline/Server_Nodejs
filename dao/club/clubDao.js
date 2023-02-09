@@ -96,7 +96,7 @@ module.exports.userBelong = async (connection, [user_id]) =>{
 
 // 2 - 2
 module.exports.clubDetail = async (connection, [club_id]) =>{
-    const clubDetailQuery =`SELECT ClubPost.club_post_id, ClubPost.club_post_title, ClubPost.post_content_text, ClubPost.like_num, ClubPost.comment_num, ClubInfo.announcement_id FROM ClubPost LEFT JOIN ClubInfo ON ClubPost.club_id = ClubInfo.club_id WHERE ClubPost.club_id = ?;`;
+    const clubDetailQuery =`SELECT ClubPost.club_post_id, ClubPost.club_post_title, ClubPost.post_content_text, ClubPost.like_num, ClubPost.comment_num, ClubPost.created_at, ClubInfo.announcement_id FROM ClubPost LEFT JOIN ClubInfo ON ClubPost.club_id = ClubInfo.club_id WHERE ClubPost.club_id = ?;`;
     const clubDetailRow = await connection.query(clubDetailQuery, [club_id]);
     
     return clubDetailRow[0];

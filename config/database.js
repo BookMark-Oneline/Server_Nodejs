@@ -9,6 +9,7 @@ const config = {
   password: `${process.env.DB_PASS}`,
   database: `${process.env.DB_NAME}`,
 };
+
 // const config = {
 // host: `127.0.0.1`,
 // user: `root`,

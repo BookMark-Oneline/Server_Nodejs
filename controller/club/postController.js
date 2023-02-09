@@ -85,7 +85,11 @@ module.exports.comment = async (req, res) => {
       );
       // comment_num(댓글 개수) +1 증가
       const addCommentCount = await retrieveAddCommentCount(club_post_id);
-      res.send(SUCCESS);
+      const viewPost = await retrieveViewPost(club_post_id);
+      const CommentData = await retrieveViewPostComment(club_post_id);
+      console.log(Object.assign(viewPost, { CommentData }));
+      result = Object.assign(viewPost, { CommentData });
+      res.send(result);
     }
   } catch (err) {
     console.log("Error", err);

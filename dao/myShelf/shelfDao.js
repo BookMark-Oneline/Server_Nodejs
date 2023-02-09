@@ -2,31 +2,32 @@
 
 
 module.exports.selectBooks = async (connection, user_id) =>{
-    const selectBookQuery =`SELECT BookInfo.book_id, BookInfo.title, BookInfo.author, BookInfo.img_url
-    FROM BookInfo
-    INNER JOIN BookShelf
-    ON BookShelf.book_Id = BookInfo.book_Id
-    WHERE BookShelf.user_id = ?;`;
+    const selectBookQuery =`SELECT BookShelf.user_id, UserInfo.total_book, UserInfo.streak, UserInfo.goal, BookInfo.book_id, BookInfo.title, BookInfo.author, BookInfo.img_url
+    FROM BookShelf INNER JOIN UserInfo ON BookShelf.user_id = UserInfo.user_id INNER JOIN BookInfo ON BookShelf.book_id =  BookInfo.book_id WHERE BookShelf.user_id = ?;`;
     const [shelfRows] = await connection.query(selectBookQuery, user_id);
     return shelfRows;
 
 }
 
-
+// 성언 수정 02/09
 module.exports.selectBookDetail = async(connection, book_id) => {
    
     const selectBookDetailQuery = `SELECT 
-    user_id,
-    title,
-    author,
-    img_url,
-    publisher,
-    ave_reading_time,
-    ave_reading_page
-    FROM BookInfo INNER JOIN BookShelf ON BookInfo.book_id = BookShelf.book_id WHERE BookShelf.book_id = ?;`;
+    BookShelf.user_id,
+    BookInfo.book_id,
+    BookInfo.title,
+    BookInfo.author,
+    BookInfo.img_url,
+    BookInfo.publisher,
+    BookInfo.total_reading_time,
+    BookInfo.current_reading_page,
+    BookInfo.total_page,
+    BookRecord.created_at,
+    BookRecord.reading_time
+    FROM BookInfo INNER JOIN BookShelf ON BookInfo.book_id = BookShelf.book_id INNER JOIN BookRecord ON BookInfo.book_id = BookRecord.book_id WHERE BookShelf.book_id = ?;`;
 
     const [bookDetailRows] = await connection.query(selectBookDetailQuery, book_id);
-    console.log(bookDetailRows);
+    console.log(selectBookDetailQuery);
     return bookDetailRows;
 
    

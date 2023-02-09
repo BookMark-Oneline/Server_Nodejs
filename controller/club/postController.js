@@ -73,7 +73,18 @@ module.exports.comment = async (req, res) => {
     const user_id = parseInt(req.body.user_id);
     const club_post_id = parseInt(req.params.club_post_id);
     const comment_content_text = req.body.comment_content_text;
-    console.log(user_id, club_post_id, comment_content_text);
+    // 현재 날짜 데이터
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const dateStr = year + "-" + month + "-" + day;
+    // 현재 시간 데이터
+    const hours = ("0" + date.getHours()).slice(-2);
+    const minutes = ("0" + date.getMinutes()).slice(-2);
+    const seconds = ("0" + date.getSeconds()).slice(-2);
+    const timeStr = hours + ":" + minutes + ":" + seconds;
+    const created_at = dateStr + " " + timeStr;
     if (!user_id) {
       res.send("This is not proper id");
       res.redirect("/");
@@ -81,7 +92,8 @@ module.exports.comment = async (req, res) => {
       const addComment = await retrieveAddComment(
         user_id,
         club_post_id,
-        comment_content_text
+        comment_content_text,
+        created_at
       );
       // comment_num(댓글 개수) +1 증가
       const addCommentCount = await retrieveAddCommentCount(club_post_id);
@@ -101,6 +113,18 @@ module.exports.post = async (req, res) => {
     const post_content_text = req.body.post_content_text;
     const img_status = req.body.img_status;
     const img_url = req.file.location;
+    // 현재 날짜 데이터
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const dateStr = year + "-" + month + "-" + day;
+    // 현재 시간 데이터
+    const hours = ("0" + date.getHours()).slice(-2);
+    const minutes = ("0" + date.getMinutes()).slice(-2);
+    const seconds = ("0" + date.getSeconds()).slice(-2);
+    const timeStr = hours + ":" + minutes + ":" + seconds;
+    const created_at = dateStr + " " + timeStr;
     if (!img_url) {
       res.send("Invalid file path");
     }
@@ -114,7 +138,8 @@ module.exports.post = async (req, res) => {
         club_post_title,
         post_content_text,
         img_status,
-        img_url
+        img_url,
+        created_at
       );
       res.send(SUCCESS);
     }

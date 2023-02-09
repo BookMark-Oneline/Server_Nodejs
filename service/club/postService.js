@@ -71,14 +71,16 @@ module.exports.retrieveRegisterAnnouncement = async (
 module.exports.retrieveAddComment = async (
   user_id,
   club_post_id,
-  comment_content_text
+  comment_content_text,
+  created_at
 ) => {
   const connection = await pool.getConnection(async (conn) => conn);
   const addCommentResult = await addComment(
     connection,
     user_id,
     club_post_id,
-    comment_content_text
+    comment_content_text,
+    created_at
   );
   connection.release();
 
@@ -101,7 +103,8 @@ module.exports.retrieveAddPost = async (
   club_post_title,
   post_content_text,
   img_status,
-  img_url
+  img_url,
+  created_at
 ) => {
   const connection = await pool.getConnection(async (conn) => conn);
   const addPostResult = await addPost(
@@ -111,7 +114,8 @@ module.exports.retrieveAddPost = async (
     club_post_title,
     post_content_text,
     img_status,
-    img_url
+    img_url,
+    created_at
   );
   connection.release();
 

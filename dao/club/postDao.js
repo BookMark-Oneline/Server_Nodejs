@@ -61,13 +61,16 @@ module.exports.addComment = async (
   connection,
   user_id,
   club_post_id,
-  comment_content_text
+  comment_content_text,
+  created_at
 ) => {
-  const addCommentQuery = `INSERT INTO ClubComment (club_post_id, comment_content_text, writer_id) VALUES(?, ?, ?);`;
+  const addCommentQuery = `INSERT INTO ClubComment (club_post_id, comment_content_text, writer_id, created_at) VALUES(?, ?, ?, ?);`;
+
   const addCommentRow = await connection.query(addCommentQuery, [
     club_post_id,
     comment_content_text,
     user_id,
+    created_at,
   ]);
   return addCommentRow[0];
 };
@@ -90,9 +93,10 @@ module.exports.addPost = async (
   club_post_title,
   post_content_text,
   img_status,
-  img_url
+  img_url,
+  created_at
 ) => {
-  const addPostQuery = `INSERT INTO ClubPost (club_id, club_post_title, writer_id, post_content_text, img_status, like_num, comment_num, img_url) VALUES (?,?,?,?,?,?,?,?);`;
+  const addPostQuery = `INSERT INTO ClubPost (club_id, club_post_title, writer_id, post_content_text, img_status, like_num, comment_num, img_url, created_at) VALUES (?,?,?,?,?,?,?,?,?);`;
   const addPostRow = await connection.query(addPostQuery, [
     club_id,
     club_post_title,
@@ -102,6 +106,7 @@ module.exports.addPost = async (
     0,
     0,
     img_url,
+    created_at,
   ]);
   return addPostRow[0];
 };

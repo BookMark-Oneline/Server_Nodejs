@@ -53,7 +53,7 @@ app.use("/search", searchBookRouter);
 app.use("/timer", timerRouter);
 app.use("/register", bookRegisterRouter);
 app.use("/delete", bookDeleteRouter);
-app.use("/club", postRouter);
+app.use("/club/post", postRouter);
 app.use("/", userRouter);
 app.use("/club", clubRouter);
 

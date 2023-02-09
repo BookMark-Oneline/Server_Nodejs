@@ -115,7 +115,7 @@ module.exports.addPost = async (
 module.exports.viewPost = async (connection, club_post_id) => {
   const viewPostQuery = `select P.club_post_id, P.club_post_title, P.img_status, P.img_url, P.post_content_text, U.user_id, U.user_name, P.like_num, P.comment_num, P.created_at from clubPost as P JOIN userInfo as U on P.writer_id = U.user_id where P.club_post_id = ?;`;
   const viewPostRow = await connection.query(viewPostQuery, club_post_id);
-
+  
   return viewPostRow[0];
 };
 

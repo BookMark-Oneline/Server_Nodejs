@@ -2,7 +2,6 @@ const pool = require("../../config/database");
 const postDao = require("../../dao/club/postDao");
 
 // 게시물 상세보기
-
 module.exports.retrieveViewPost = async (club_post_id) => {
   const connection = await pool.getConnection(async (conn) => conn);
   const viewPostResult = await postDao.viewPost(connection, club_post_id);

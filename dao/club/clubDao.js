@@ -95,12 +95,25 @@ module.exports.userBelong = async (connection, [user_id]) =>{
 
 
 // 2 - 2
-module.exports.clubDetail = async (connection, [club_id]) =>{
-    const clubDetailQuery =`SELECT ClubPost.club_post_id, ClubPost.club_post_title, ClubPost.post_content_text, ClubPost.like_num, ClubPost.comment_num, ClubPost.created_at, ClubInfo.announcement_id FROM ClubPost LEFT JOIN ClubInfo ON ClubPost.club_id = ClubInfo.club_id WHERE ClubPost.club_id = ?;`;
+// module.exports.clubDetail = async (connection, [club_id]) =>{
+//     const clubDetailQuery =`SELECT ClubPost.club_post_id, ClubPost.club_post_title, ClubPost.post_content_text, ClubPost.like_num, ClubPost.comment_num, ClubPost.created_at, ClubInfo.announcement_id FROM ClubPost LEFT JOIN ClubInfo ON ClubPost.club_id = ClubInfo.club_id WHERE ClubPost.club_id = ?;`;
+//     const clubDetailRow = await connection.query(clubDetailQuery, [club_id]);
+    
+//     return clubDetailRow[0];
+// }
+module.exports.AnnouncementDetail = async (connection, [club_id]) =>{
+    const AnnouncementDetailQuery =`SELECT ClubPost.club_id, ClubInfo.announcement_id FROM ClubPost LEFT JOIN ClubInfo ON ClubPost.club_id = ClubInfo.club_id WHERE ClubPost.club_id = ?;`;
+    const AnnouncementDetailRow = await connection.query(AnnouncementDetailQuery, [club_id]);
+    
+    return AnnouncementDetailRow[0];
+}
+module.exports.PostDetail = async (connection, [club_id]) =>{
+    const clubDetailQuery =`SELECT ClubPost.club_post_id, ClubPost.club_post_title, ClubPost.post_content_text, ClubPost.like_num, ClubPost.comment_num, ClubPost.created_at FROM ClubPost LEFT JOIN ClubInfo ON ClubPost.club_id = ClubInfo.club_id WHERE ClubPost.club_id = ?;`;
     const clubDetailRow = await connection.query(clubDetailQuery, [club_id]);
     
     return clubDetailRow[0];
 }
+
 
 // 2 - 5 책 모임의 소속 회원의 이름, 상태메시지, 현재 상태를 조회함
 module.exports.clubMember = async (connection, [club_id]) =>{

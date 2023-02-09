@@ -1,3 +1,6 @@
+
+const pool = require('../../config/database');
+const { selectClubSetting, selectClub, selectUser, selectRequestingMembersInfo } = require('../../dao/club/clubDao');
 const pool = require("../../config/database");
 
 const { clubDetail, clubMember, clubSearch, userBelong } = require('../../dao/club/clubDao');
@@ -5,6 +8,41 @@ const { clubDetail, clubMember, clubSearch, userBelong } = require('../../dao/cl
 
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
+
+
+module.exports.retrieveClubSetting = async(club_id) => {
+    const connection = await pool.getConnection(async conn => conn);
+    const clubSettingResult = await selectClubSetting(connection, club_id);
+    connection.release();
+    return clubSettingResult;
+
+}
+
+module.exports.findUser = async(user_id) => {
+    const connection = await pool.getConnection(async coon => coon);
+    const userResult = await selectUser(connection, user_id);
+    connection.release();
+    return userResult;
+
+}
+
+module.exports.findClub = async(club_id) => {
+    const connection = await pool.getConnection(async coon => coon);
+    const clubResult = await selectClub(connection, club_id);
+    connection.release();
+    return clubResult;
+}
+
+
+
+module.exports.retrieveRequestingMembers = async(club_id) => {
+    const connection = await pool.getConnection(async conn => conn);
+    const userInfoResult = await selectRequestingMembersInfo(connection, club_id);
+    connection.release();
+    return userInfoResult;
+}
+
+
 
 // 2-1
 // Provider: Select 비즈니스 로직 처리
@@ -51,3 +89,4 @@ exports.clubSearch = async (club_id) => {
 
   return clubSearchResult;
 };
+

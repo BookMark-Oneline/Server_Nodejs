@@ -7,7 +7,7 @@ const config = {
   user: `${process.env.DB_USER}`,
   port: `3306`,
   password: `${process.env.DB_PASS}`,
-database: `${process.env.DB_NAME}`,
+  database: `${process.env.DB_NAME}`,
 };
 // const config = {
 // host: `127.0.0.1`,

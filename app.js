@@ -1,7 +1,7 @@
 require("dotenv").config();
 const dotenv = require("dotenv");
 const session = require("express-session");
-const MySQLStore = require('express-mysql-session')(session);
+const MySQLStore = require("express-mysql-session")(session);
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
@@ -14,11 +14,10 @@ const bookDeleteRouter = require("./router/myShelf/bookDeleteRouter");
 const postRouter = require("./router/club/postRoute");
 
 const clubRouter = require("./router/club/clubRoute");
-const userRouter = require('./router/user/userRoute');
+const userRouter = require("./router/user/userRoute");
 
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-
 
 //해당 미들웨어가 사이트로 들어오는 모두를 기억.
 app.use(
@@ -56,8 +55,6 @@ app.use("/register", bookRegisterRouter);
 app.use("/delete", bookDeleteRouter);
 app.use("/club", postRouter);
 app.use("/", userRouter);
-
+app.use("/club", clubRouter);
 
 module.exports = app;
-app.use("/club", clubRouter)
-

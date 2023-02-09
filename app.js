@@ -10,8 +10,12 @@ const searchBookRouter = require("./router/myShelf/searchBook");
 const timerRouter = require("./router/myShelf/timerRoute");
 const bookRegisterRouter = require("./router/myShelf/bookRegisterRouter");
 const bookDeleteRouter = require("./router/myShelf/bookDeleteRouter");
-const postRouter = require('./router/club/clubRoute');
+
+const postRouter = require("./router/club/postRoute");
+
+const clubRouter = require("./router/club/clubRoute");
 const userRouter = require('./router/user/userRoute');
+
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 
@@ -53,4 +57,7 @@ app.use("/delete", bookDeleteRouter);
 app.use("/club", postRouter);
 app.use("/", userRouter);
 
+
 module.exports = app;
+app.use("/club", clubRouter)
+

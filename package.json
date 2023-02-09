@@ -13,15 +13,24 @@
   "dependencies": {
     "@babel/preset-env": "^7.20.2",
     "aws-sdk": "^2.1305.0",
+    "bcrypt": "^5.1.0",
+    "connect-mysql2": "^2.2.6",
+    "connect-redis": "^6.1.3",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-mysql-session": "^2.1.8",
     "express-session": "^1.17.3",
+    "init": "^0.1.2",
+    "jsonwebtoken": "^9.0.0",
     "method-override": "^3.0.0",
     "multer": "^1.4.5-lts.1",
     "multer-s3": "^2.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
-    "nodemon": "^2.0.20",
+    "redis": "^3.1.2",
+    "redis-server": "^1.2.2",
+    "regex-email": "^1.0.2",
     "request": "^2.88.2"
   },
   "repository": {
@@ -31,5 +40,9 @@
   "bugs": {
     "url": "https://github.com/BookMark-Oneline/Server_Nodejs/issues"
   },
-  "homepage": "https://github.com/BookMark-Oneline/Server_Nodejs#readme"
+  "homepage": "https://github.com/BookMark-Oneline/Server_Nodejs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
+  }
 }

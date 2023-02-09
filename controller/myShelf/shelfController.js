@@ -1,4 +1,5 @@
 const { errResponse, response } = require("../../config/response");
+
 const baseResponse = require("../../config/baseResponse");
 const {
   retrieveBookList,
@@ -24,6 +25,7 @@ module.exports.findMyAllBooks = async (req, res) => {
       console.log(Object.assign({ User }, { Book }));
       result = Object.assign({ User }, { Book });
       res.send(result);
+
     }
   } catch (err) {
     console.log("Error", err);
@@ -34,6 +36,8 @@ module.exports.findMyAllBooks = async (req, res) => {
     });
   }
 };
+
+
 
 // shelf/book/:bookd_id -> 각각의 책 별 세부사항 조회 API
 module.exports.searchBookDetail = async (req, res) => {

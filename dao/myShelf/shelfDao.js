@@ -1,3 +1,4 @@
+
 module.exports.selectBooks = async (connection, user_id) => {
   const selectBookQuery = `SELECT BookInfo.book_id, BookInfo.title, BookInfo.author, BookInfo.img_url
     FROM BookInfo
@@ -32,3 +33,4 @@ module.exports.selectUser = async (connection, user_id) => {
   const [userDataRows] = await connection.query(selectUserQuery, user_id);
   return userDataRows;
 };
+

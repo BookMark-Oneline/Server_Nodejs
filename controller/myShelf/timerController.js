@@ -1,5 +1,7 @@
 const timerService = require("../../service/myShelf/timerService");
 const timerProvider = require("../../provider/myShelf/timerProvider");
+const { isTodayRead } = require("../../dao/myShelf/timerDao");
+const { SUCCESS } = require("../../config/baseResponse");
 
 module.exports.startTimer = async (req, res) => {
   try {
@@ -59,6 +61,7 @@ module.exports.finishTimer = async (req, res) => {
         current_reading_page,
         book_id
       );
+
       // 현재 날짜 데이터가 BookRecord의 created_at에 있는지 확인
       const isTodayRead = await timerProvider.isTodayRead(dateStr);
       if (isTodayRead) {
@@ -141,10 +144,11 @@ module.exports.finishTimer = async (req, res) => {
           total_reading_time
         );
         // 목표 달성했는지 체크
+
         res.send(SUCCESS);
       }
       console.log(BookInfo);
-      return res.send(BookInfo);
+      //return res.send(BookInfo);
     }
   } catch (err) {
     console.log("Error", err);

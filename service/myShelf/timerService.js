@@ -45,10 +45,12 @@ exports.editBookInfo = async (
 
 // BookRecord에 새로운 데이터를 삽입하는 모듈
 exports.insertBookRecord = async (
+
   user_id,
   book_id,
   created_at,
   total_reading_time
+
 ) => {
   // const updateBookInfoParams = [
   //   parseInt(total_reading_time),
@@ -59,6 +61,7 @@ exports.insertBookRecord = async (
   const insertBookRecordResult = timerDao.insertBookRecord(
     connection,
 
+
     user_id,
     book_id,
     created_at,
@@ -66,15 +69,18 @@ exports.insertBookRecord = async (
   );
   connection.release();
 
+
   return insertBookRecordResult[0];
 };
 
 // BookRecord를 업데이트하는 모듈
 exports.updateBookRecord = async (
+
   user_id,
   book_id,
   dateStr,
   total_reading_time
+
 ) => {
   // const updateBookInfoParams = [
   //   parseInt(total_reading_time),
@@ -116,3 +122,4 @@ exports.editLastCal = async (user_id, last_cal) => {
 
   return updateLastCalResult[0];
 };
+

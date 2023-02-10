@@ -7,7 +7,8 @@ const {
 } = require("../../dao/club/clubDao");
 
 const {
-  clubDetail,
+  AnnouncementDetail,
+  PostDetail,
   clubMember,
   clubSearch,
   userBelong,
@@ -59,14 +60,31 @@ exports.userBelong = async (user_id) => {
 // 2 - 2
 // Provider: Select 비즈니스 로직 처리
 // 책 모임의 이름, 공지, 게시글 목록을 조회함
-exports.clubDetail = async (club_id) => {
+// exports.clubDetail = async (club_id) => {
+//   const connection = await pool.getConnection(async (conn) => conn);
+//   const clubDetailResult = await clubDetail(connection, [club_id]);
+//   connection.release();
+
+//   return clubDetailResult;
+//   //return response(baseResponse.SUCCESS);
+// };
+exports.retrieveAnnouncementResponse = async (club_id) => {
   const connection = await pool.getConnection(async (conn) => conn);
-  const clubDetailResult = await clubDetail(connection, [club_id]);
+  const AnnouncementResult = await AnnouncementDetail(connection, [club_id]);
   connection.release();
 
-  return clubDetailResult;
+  return AnnouncementResult[0]; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //return response(baseResponse.SUCCESS);
 };
+exports.retrievePostResponse = async (club_id) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const retrievePostResult = await PostDetail(connection, [club_id]);
+  connection.release();
+
+  return retrievePostResult;
+  //return response(baseResponse.SUCCESS);
+};
+
 
 // 2-5
 // Provider: Select 비즈니스 로직 처리

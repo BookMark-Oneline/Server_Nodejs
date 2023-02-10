@@ -34,7 +34,7 @@ module.exports.selectTotalReadingTime = async (
 
 // 현재 유저가 선택한 책의 총 독서시간과 현재 읽고있는 페이지 업데이트
 module.exports.updateBookInfo = async (connection, updateBookInfoParams) => {
-  const updateBookInfoQuery = `UPDATE BookInfo SET total_reading_time=?, current_reading_page=? WHERE book_id=?;`;
+  const updateBookInfoQuery = `UPDATE BookInfo SET total_reading_time= total_reading_time + ?, current_reading_page=? WHERE book_id=?;`;
   const [updateBookInfoRow] = await connection.query(
     updateBookInfoQuery,
     updateBookInfoParams
@@ -129,3 +129,4 @@ module.exports.updateLastCal = async (connection, user_id, last_cal) => {
   ]);
   return updateLastCalRow;
 };
+

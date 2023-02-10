@@ -1,6 +1,6 @@
 const { retrieveClubSetting, findClub, findUser, retrieveRequestingMembers } = require("../../provider/club/clubProvider");
 const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus } = require("../../service/club/clubService");
-const { clubSearch, clubMember, clubDetail, userBelong } = require("../../provider/club/clubProvider");
+const { clubSearch, clubMember, retrieveAnnouncementResponse, retrievePostResponse, userBelong } = require("../../provider/club/clubProvider");
 const baseResponse = require("../../config/baseResponse");
 
 // const { clubRequest } = require("../../service/club/clubService");
@@ -271,26 +271,48 @@ module.exports.clubMember = async (req, res) => {
  * API Name : 책 모임의 이름, 공지, 게시글 목록을 조회 API
  * [GET] /:club_id
  */
+// module.exports.clubDetail = async (req, res) => {
+//     try {
+//       const { club_id } = req.params;
+  
+//       if (!club_id){
+//           res.send("This is not proper club_id");
+//       } else {
+//         const DetailResponse = await clubDetail(
+//           club_id,
+//         );
+//         console.log(DetailResponse);
+//         return res.send(DetailResponse);
+//       }
+//     } catch (err) {
+//       console.log("Error", err);
+//       //오류 메시지 반환.
+//       return res.status(res.statusCode).send(err._message);
+//     }
+//   };
 module.exports.clubDetail = async (req, res) => {
     try {
       const { club_id } = req.params;
   
       if (!club_id){
           res.send("This is not proper club_id");
+          //res.redirect("/");
       } else {
-        const DetailResponse = await clubDetail(
-          club_id,
-        );
-        console.log(DetailResponse);
-        return res.send(DetailResponse);
+        const AnnouncementResponse = await retrieveAnnouncementResponse(club_id);
+        const PostResponse = await retrievePostResponse(club_id);
+        console.log(AnnouncementResponse);
+        console.log(Object.assign(AnnouncementResponse, { PostResponse } ));
+        result = Object.assign(AnnouncementResponse, { PostResponse } );
+        console.log(result);
+        res.send(Object.assign(AnnouncementResponse, { PostResponse } ));
+        
       }
     } catch (err) {
       console.log("Error", err);
       //오류 메시지 반환.
       return res.status(res.statusCode).send(err._message);
     }
-  };
-  
+  }; 
 
   /*
  * API No. 2-5

@@ -45,3 +45,4 @@ exports.retrieveUserGoalData = async (user_id) => {
 
   return userGoalDataResult[0];
 };
+

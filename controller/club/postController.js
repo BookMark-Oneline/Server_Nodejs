@@ -164,7 +164,7 @@ module.exports.viewPost = async (req, res) => {
     } else {
       const viewPost = await retrieveViewPost(club_post_id);
       const CommentData = await retrieveViewPostComment(club_post_id);
-      //console.log(viewPost);
+      console.log(viewPost);
       //console.log(viewPostComment);
       console.log(Object.assign(viewPost, { CommentData }));
       result = Object.assign(viewPost, { CommentData });

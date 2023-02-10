@@ -42,3 +42,80 @@ exports.editBookInfo = async (
 
   return response(baseResponse.SUCCESS);
 };
+<<<<<<< Updated upstream
+=======
+
+// BookRecord에 새로운 데이터를 삽입하는 모듈
+exports.insertBookRecord = async (
+  user_id,
+  book_id,
+  created_at,
+  total_reading_time
+) => {
+  // const updateBookInfoParams = [
+  //   parseInt(total_reading_time),
+  //   parseInt(current_reading_page),
+  //   parseInt(book_id),
+  // ];
+  const connection = await pool.getConnection(async (conn) => conn);
+  const insertBookRecordResult = timerDao.insertBookRecord(
+    connection,
+
+    user_id,
+    book_id,
+    created_at,
+    total_reading_time
+  );
+  connection.release();
+
+  return insertBookRecordResult[0];
+};
+
+// BookRecord를 업데이트하는 모듈
+exports.updateBookRecord = async (
+  user_id,
+  book_id,
+  dateStr,
+  total_reading_time
+) => {
+  // const updateBookInfoParams = [
+  //   parseInt(total_reading_time),
+  //   parseInt(current_reading_page),
+  //   parseInt(book_id),
+  // ];
+  const connection = await pool.getConnection(async (conn) => conn);
+  const updateBookRecordResult = timerDao.updateBookRecord(
+    connection,
+
+    user_id,
+    book_id,
+    dateStr,
+    total_reading_time
+  );
+  connection.release();
+
+  return updateBookRecordResult[0];
+};
+
+// 유저의 streak(연속 목표 달성 일수) UPDATE
+exports.editStreak = async (user_id, streak) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const updateStreakResult = timerDao.updateStreak(connection, user_id, streak);
+  connection.release();
+
+  return updateStreakResult[0];
+};
+
+// 유저의 last_cal(마지막으로 목표를 달성한 날짜) UPDATE
+exports.editLastCal = async (user_id, last_cal) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const updateLastCalResult = timerDao.updateLastCal(
+    connection,
+    user_id,
+    last_cal
+  );
+  connection.release();
+
+  return updateLastCalResult[0];
+};
+>>>>>>> Stashed changes

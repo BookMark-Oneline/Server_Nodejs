@@ -157,10 +157,9 @@ module.exports.post = async (req, res) => {
 // 게시물 & 댓글 보기
 module.exports.viewPost = async (req, res) => {
   try {
-    const club_post_id = parseInt(req.params.club_post_id);
+    const { club_post_id } = req.params;
     if (!club_post_id) {
       res.send("Invalid club_post_id", club_post_id);
-      res.redirect("/");
     } else {
       const viewPost = await retrieveViewPost(club_post_id);
       const CommentData = await retrieveViewPostComment(club_post_id);

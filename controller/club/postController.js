@@ -159,7 +159,7 @@ module.exports.viewPost = async (req, res) => {
   try {
     const club_post_id = parseInt(req.params.club_post_id);
     if (!club_post_id) {
-      res.send("Invalid club_post_id");
+      res.send("Invalid club_post_id", club_post_id);
       res.redirect("/");
     } else {
       const viewPost = await retrieveViewPost(club_post_id);

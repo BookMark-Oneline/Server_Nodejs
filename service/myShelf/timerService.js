@@ -42,3 +42,51 @@ exports.editBookInfo = async (
 
   return response(baseResponse.SUCCESS);
 };
+
+// BookRecord에 새로운 데이터를 삽입하는 모듈
+exports.insertBookRecord = async (
+  user_id, book_id, created_at, total_reading_time
+) => {
+  // const updateBookInfoParams = [
+  //   parseInt(total_reading_time),
+  //   parseInt(current_reading_page),
+  //   parseInt(book_id),
+  // ];
+  const connection = await pool.getConnection(async (conn) => conn);
+  const insertBookRecordResult = timerDao.insertBookRecord(
+    connection,
+    
+      user_id, 
+      book_id, 
+      created_at, 
+      total_reading_time
+      
+  );
+  connection.release();
+  
+  return insertBookRecordResult[0];
+};
+
+// BookRecord를 업데이트하는 모듈
+exports.updateBookRecord = async (
+  user_id, book_id, dateStr, total_reading_time
+) => {
+  // const updateBookInfoParams = [
+  //   parseInt(total_reading_time),
+  //   parseInt(current_reading_page),
+  //   parseInt(book_id),
+  // ];
+  const connection = await pool.getConnection(async (conn) => conn);
+  const updateBookRecordResult = timerDao.updateBookRecord(
+    connection,
+    
+      user_id, 
+      book_id, 
+      dateStr, 
+      total_reading_time
+      
+  );
+  connection.release();
+  
+  return updateBookRecordResult[0];
+};

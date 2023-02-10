@@ -52,38 +52,81 @@ module.exports.isTodayRead = async (connection, dateStr) => {
     dateStr
     // updateBookInfoParams
   );
-  
+
   return isTodayReadRow;
 };
 // BookRecord에 새로운 데이터를 삽입하는 모듈
-module.exports.insertBookRecord = async (connection, user_id, book_id, created_at, total_reading_time) => {
+module.exports.insertBookRecord = async (
+  connection,
+  user_id,
+  book_id,
+  created_at,
+  total_reading_time
+) => {
   const insertBookRecordQuery = `INSERT INTO BookRecord (book_id, user_id, created_at, reading_time ) VALUES (?, ?, ?, ?);`;
   const [insertBookRecordRow] = await connection.query(
     insertBookRecordQuery,
-    [
-    book_id,
-    user_id,  
-    created_at, 
-    total_reading_time
-    ]
+    [book_id, user_id, created_at, total_reading_time]
     // updateBookInfoParams
   );
-  
+
   return insertBookRecordRow;
 };
 // BookRecord를 업데이트하는 모듈
-module.exports.updateBookRecord = async (connection, user_id, book_id, dateStr, total_reading_time ) => {
+module.exports.updateBookRecord = async (
+  connection,
+  user_id,
+  book_id,
+  dateStr,
+  total_reading_time
+) => {
   const updateBookRecordQuery = `UPDATE BookRecord SET reading_time = reading_time + ? WHERE user_id =? AND book_id = ? AND created_at = ? ;`;
   const [updateBookRecordRow] = await connection.query(
     updateBookRecordQuery,
-    [
-    total_reading_time,
-    user_id,
-    book_id, 
-    dateStr, 
-    ]
+    [total_reading_time, user_id, book_id, dateStr]
     // updateBookInfoParams
   );
- 
+
   return updateBookRecordRow;
 };
+
+// 오늘 날짜의 reading_time SELECT
+module.exports.selectReadingTime = async (connection, user_id, book_id) => {
+  const selectReadingTimeQuery = `SELECT reading_time FROM BookRecord WHERE user_id =? and book_id=?`;
+  const [selectReadingTimeRow] = await connection.query(
+    selectReadingTimeQuery,
+    [user_id, book_id]
+  );
+  return selectReadingTimeRow;
+};
+
+// 유저의 goal, last_cal, streak SELECT
+module.exports.selectUserGoalData = async (connection, user_id) => {
+  const selectUserGoalDataQuery = `SELECT goal, last_cal, streak FROM UserInfo WHERE user_id=?`;
+  const [selectUserGoalDataRow] = await connection.query(
+    selectUserGoalDataQuery,
+    user_id
+  );
+  return selectUserGoalDataRow;
+};
+
+// 유저의 streak(연속 목표 달성 일수) UPDATE
+module.exports.updateStreak = async (connection, user_id, streak) => {
+  const updateStreakQuery = `UPDATE UserInfo SET streak=?+1 WHERE user_id=?`;
+  const [updateStreakRow] = await connection.query(updateStreakQuery, [
+    streak,
+    user_id,
+  ]);
+  return updateStreakRow;
+};
+
+// 유저의 last_cal(마지막으로 목표를 달성한 날짜) UPDATE
+module.exports.updateLastCal = async (connection, user_id, last_cal) => {
+  const updateLastCalQuery = `UPDATE UserInfo SET last_cal=? WHERE user_id=?`;
+  const [updateLastCalRow] = await connection.query(updateLastCalQuery, [
+    last_cal,
+    user_id,
+  ]);
+  return updateLastCalRow;
+};
+

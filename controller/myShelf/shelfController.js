@@ -1,7 +1,7 @@
 const { errResponse, response } = require("../../config/response");
 
 const  baseResponse = require( "../../config/baseResponse");
-const { retrieveBookList , retrieveBookDetail, retrieveDataDetail} = require('../../provider/myShelf/shelfProvider')
+const { retrieveBookList , retrieveBookDetail, retrieveDataDetail } = require('../../provider/myShelf/shelfProvider');
 const { set } = require('../../config/redis');
 const redisClient  = require('../../config/redis');
 

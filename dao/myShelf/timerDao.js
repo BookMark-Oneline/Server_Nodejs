@@ -43,8 +43,6 @@ module.exports.updateBookInfo = async (connection, updateBookInfoParams) => {
   // console.log(updateBookInfoRow);
   return updateBookInfoRow;
 };
-<<<<<<< Updated upstream
-=======
 
 // 현재 날짜 데이터가 BookRecord의 created_at에 있는지 조회하는 모듈
 module.exports.isTodayRead = async (connection, dateStr) => {
@@ -131,4 +129,3 @@ module.exports.updateLastCal = async (connection, user_id, last_cal) => {
   ]);
   return updateLastCalRow;
 };
->>>>>>> Stashed changes

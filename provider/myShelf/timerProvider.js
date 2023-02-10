@@ -12,8 +12,6 @@ exports.retrieveTotalReadingTime = async (user_id, book_id) => {
 
   return selectTotalReadingTimeResult[0];
 };
-<<<<<<< Updated upstream
-=======
 
 // 현재 날짜 데이터(datestr)가 BookRecord의 created_at에 있는지
 exports.isTodayRead = async (dateStr) => {
@@ -47,4 +45,3 @@ exports.retrieveUserGoalData = async (user_id) => {
 
   return userGoalDataResult[0];
 };
->>>>>>> Stashed changes

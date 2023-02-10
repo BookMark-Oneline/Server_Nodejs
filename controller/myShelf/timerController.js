@@ -35,8 +35,6 @@ module.exports.finishTimer = async (req, res) => {
     const { user_id, book_id } = req.params;
     const { total_reading_time, current_reading_page } = req.body;
 
-<<<<<<< Updated upstream
-=======
     // 현재 날짜 데이터
     const date = new Date();
     const year = date.getFullYear();
@@ -49,7 +47,6 @@ module.exports.finishTimer = async (req, res) => {
     const seconds = ("0" + date.getSeconds()).slice(-2);
     const timeStr = hours + ":" + minutes + ":" + seconds;
 
->>>>>>> Stashed changes
     if (!user_id) {
       res.send("This is not proper id");
       res.redirect("/");
@@ -62,8 +59,6 @@ module.exports.finishTimer = async (req, res) => {
         current_reading_page,
         book_id
       );
-<<<<<<< Updated upstream
-=======
       // 현재 날짜 데이터가 BookRecord의 created_at에 있는지 확인
       const isTodayRead = await timerProvider.isTodayRead(dateStr);
       if (isTodayRead) {
@@ -148,7 +143,6 @@ module.exports.finishTimer = async (req, res) => {
         // 목표 달성했는지 체크
         res.send(SUCCESS);
       }
->>>>>>> Stashed changes
       console.log(BookInfo);
       return res.send(BookInfo);
     }

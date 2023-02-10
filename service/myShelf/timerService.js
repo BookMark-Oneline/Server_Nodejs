@@ -42,8 +42,6 @@ exports.editBookInfo = async (
 
   return response(baseResponse.SUCCESS);
 };
-<<<<<<< Updated upstream
-=======
 
 // BookRecord에 새로운 데이터를 삽입하는 모듈
 exports.insertBookRecord = async (
@@ -118,4 +116,3 @@ exports.editLastCal = async (user_id, last_cal) => {
 
   return updateLastCalResult[0];
 };
->>>>>>> Stashed changes

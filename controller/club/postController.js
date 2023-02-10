@@ -158,16 +158,18 @@ module.exports.post = async (req, res) => {
 module.exports.viewPost = async (req, res) => {
   try {
     const { club_post_id } = req.params;
-    if (!club_post_id) {
-      res.send("Invalid club_post_id", club_post_id);
-    } else {
-      const viewPost = await retrieveViewPost(club_post_id);
+    const viewPost = await retrieveViewPost(club_post_id);
+    if (viewPost) {
+      // club_post_id가 존재하는 경우
       const CommentData = await retrieveViewPostComment(club_post_id);
-      console.log(viewPost);
+      console.log("viewPost : ", viewPost);
       //console.log(viewPostComment);
-      console.log(Object.assign(viewPost, { CommentData }));
+      //console.log(Object.assign(viewPost, { CommentData }));
       result = Object.assign(viewPost, { CommentData });
       res.send(result);
+    } else {
+      // 없는 club_post_id 여서 데이터 조회가 안되는 경우
+      res.send("존재하지 않는 club_id 입니다.");
     }
   } catch (err) {
     console.log("Error", err);

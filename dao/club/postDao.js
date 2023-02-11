@@ -113,7 +113,7 @@ module.exports.addPost = async (
 
 // 게시물 상세보기
 module.exports.viewPost = async (connection, club_post_id) => {
-  const viewPostQuery = `select P.club_post_id, P.club_post_title, P.img_status, P.img_url, P.post_content_text, U.user_id, U.user_name, P.like_num, P.comment_num, P.created_at from clubPost as P JOIN userInfo as U on P.writer_id = U.user_id where P.club_post_id = ?;`;
+  const viewPostQuery = `select P.club_post_id, P.club_post_title, P.img_status, P.img_url, P.post_content_text, U.user_id, U.user_name, P.like_num, P.comment_num, P.created_at from ClubPost as P JOIN UserInfo as U on P.writer_id = U.user_id where P.club_post_id = ?;`;
   const viewPostRow = await connection.query(viewPostQuery, club_post_id);
 
   return viewPostRow[0];
@@ -121,7 +121,7 @@ module.exports.viewPost = async (connection, club_post_id) => {
 
 // 게시물의 댓글보기
 module.exports.viewPostComment = async (connection, club_post_id) => {
-  const viewPostCommentQuery = `select C.club_comment_id, C.writer_id, U.user_name, C.comment_content_text, C.created_at  from clubComment as C JOIN clubPost as P on P.club_post_id = C.club_post_id JOIN userInfo as U on U.user_id = C.writer_id where P.club_post_id = ?;`;
+  const viewPostCommentQuery = `select C.club_comment_id, C.writer_id, U.user_name, C.comment_content_text, C.created_at  from ClubComment as C JOIN ClubPost as P on P.club_post_id = C.club_post_id JOIN UserInfo as U on U.user_id = C.writer_id where P.club_post_id = ?;`;
   const viewPostCommentRow = await connection.query(
     viewPostCommentQuery,
     club_post_id

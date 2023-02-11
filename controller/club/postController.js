@@ -169,7 +169,7 @@ module.exports.viewPost = async (req, res) => {
       res.send(result);
     } else {
       // 없는 club_post_id 여서 데이터 조회가 안되는 경우
-      res.send("존재하지 않는 club_id 입니다.");
+      res.send("존재하지 않는 club_post_id 입니다.");
     }
   } catch (err) {
     console.log("Error", err);

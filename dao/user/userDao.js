@@ -36,10 +36,20 @@ module.exports.selectUserPassword = async(connection, selectUserPasswordParams) 
     FROM UserInfo 
     WHERE name = ? AND password = ?;`;
     
-    const selectUserPasswordRow = await connection.query(
+    const [selectUserPasswordRow] = await connection.query(
         selectUserPasswordQuery,
         selectUserPasswordParams
     );
     
     return selectUserPasswordRow;
+}
+
+
+module.exports.appleSign = async(connection, id, username, email) => {
+    const inserNewAppleUserQuery = `INSERT INTO UserInfo (user_id, username, email) VALUES(?,?,?);`;
+    const [inserNewAppleUserInfoRow] = await connection.query(insertNewUserInfoQuery,
+        [id,username,email]);
+    
+    return inserNewAppleUserInfoRow;
+
 }

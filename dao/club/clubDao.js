@@ -43,15 +43,15 @@ module.exports.selectUser = async(connection, user_id) => {
 
 
 module.exports.selectRequestingMembersInfo = async(connection, club_id) => {
-    const selectUserInfoQuery = `SELECT 
-    ClubMember.user_id, 
+    const selectUserInfoQuery = `SELECT DISTINCT ClubMember.user_id,
     UserInfo.introduce_message, 
     UserInfo.user_name, 
     UserInfo.img_url 
-    FROM ClubMember
+    FROM ClubMember 
     JOIN UserInfo 
     ON ClubMember.user_id = UserInfo.user_id 
-    WHERE club_id=? and is_member=0;`;
+    WHERE ClubMember.club_id = ? 
+    AND ClubMember.is_member = 0;`;
     const [selectUserRow] = await connection.query(
         selectUserInfoQuery, club_id
     );

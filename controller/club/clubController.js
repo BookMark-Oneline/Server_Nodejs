@@ -12,6 +12,7 @@ module.exports.findClubSetting = async (req,res) => {
         if(clubSetting.length < 1) {
             return res.status(400).json({ message: "A club with this club_id does not exist." })
         } else {
+            set(req.originalUrl, clubSetting )
             return res.status(200).json({ clubData: clubSetting });
         }
         
@@ -123,7 +124,9 @@ module.exports.findRequestingMembers = async (req,res) => {
     if(membersRequesting.length < 1) {
         return res.status(400).json({ message: "Any Members requesting doesn't exist. " })
     }
-    return res.json({ club, membersRequesting });
+    return res.json({ "club_id" :club, "membersRequesting": membersRequesting });
+
+
     } catch (err) {
         console.log("Err", err);
         return res.status(500).send({

@@ -8,9 +8,10 @@ const imgUpload = require("../../utils/imageUploader");
 router.route("/like/:club_post_id").post(postController.changeLike);
 router.route("/register/notice/:club_id").post(postController.announcement);
 router.route("/comment/:club_post_id").post(postController.comment);
+router.route("/register/:club_id").post(postController.post);
 router
-  .route("/register/:club_id")
-  .post(imgUpload.single("img"), postController.post);
+  .route("/register_singlephoto/:club_id")
+  .post(imgUpload.single("img"), postController.post_singlephoto);
 router.route("/:club_post_id").get(postController.viewPost);
 
 module.exports = router;

@@ -10,8 +10,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const AppleAuth = require('apple-auth');
 const fs = require('fs');
-//const appleKey = require('../../config/apple.json');
-//const appleAuth = new AppleAuth(appleKey, path.join(__dirname, `../../config/apple${appleKey.private_key_path}`));
+
 
 const clientId = APPLE_CLIENT_ID
 const privateKey = process.env.APPLE_PRIVATE_KEY_PATH;
@@ -24,6 +23,9 @@ const options = {
   teamId,
   privateKey
 };
+
+
+
 
 const appleAuth = appleAuth(options);
 app.use(appleAuth.middleware());

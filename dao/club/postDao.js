@@ -85,8 +85,8 @@ module.exports.addCommentCount = async (connection, club_post_id) => {
   return addCommentCountRow[0];
 };
 
-// 게시물 작성
-module.exports.addPost = async (
+// 게시물 작성(사진 포함O)
+module.exports.addPostSinglePhoto = async (
   connection,
   user_id,
   club_id,
@@ -111,11 +111,35 @@ module.exports.addPost = async (
   return addPostRow[0];
 };
 
+// 게시물 작성(사진 포함X)
+module.exports.addPost = async (
+  connection,
+  user_id,
+  club_id,
+  club_post_title,
+  post_content_text,
+  img_status,
+  created_at
+) => {
+  const addPostQuery = `INSERT INTO ClubPost (club_id, club_post_title, writer_id, post_content_text, img_status, like_num, comment_num,  created_at) VALUES (?,?,?,?,?,?,?,?);`;
+  const addPostRow = await connection.query(addPostQuery, [
+    club_id,
+    club_post_title,
+    user_id,
+    post_content_text,
+    img_status,
+    0,
+    0,
+    created_at,
+  ]);
+  return addPostRow[0];
+};
+
 // 게시물 상세보기
 module.exports.viewPost = async (connection, club_post_id) => {
   const viewPostQuery = `select P.club_post_id, P.club_post_title, P.img_status, P.img_url, P.post_content_text, U.user_id, U.user_name, P.like_num, P.comment_num, P.created_at from clubPost as P JOIN userInfo as U on P.writer_id = U.user_id where P.club_post_id = ?;`;
   const viewPostRow = await connection.query(viewPostQuery, club_post_id);
-  
+
   return viewPostRow[0];
 };
 

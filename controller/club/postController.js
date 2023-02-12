@@ -5,6 +5,7 @@ const {
   retrieveRegisterAnnouncement,
   retrieveAddComment,
   retrieveAddPost,
+  retrieveAddPostSinglePhoto,
   retrieveAddCommentCount,
   retrieveAddLikeCount,
   retrieveSubLikeCount,
@@ -110,9 +111,9 @@ module.exports.comment = async (req, res) => {
   }
 };
 
-// 게시물 작성
-module.exports.post = async (req, res) => {
-  console.log("req.file.location", req.file.location);
+// 게시물 작성 (사진 포함 O)
+module.exports.post_singlephoto = async (req, res) => {
+  // console.log("req.file.location: ", req.file.location);
 
   try {
     const user_id = parseInt(req.body.user_id);
@@ -120,13 +121,8 @@ module.exports.post = async (req, res) => {
     const club_post_title = req.body.club_post_title;
     const post_content_text = req.body.post_content_text;
     const img_status = req.body.img_status;
-    if (req.file.location) {
-      // 이미지 있음
-      const img_url = req.file.location;
-    } else {
-      // 이미지 없음
-      const img_url = null;
-    }
+    const img_url = req.file.location;
+
     console.log(img_url);
     // 현재 날짜 데이터
     const date = new Date();
@@ -144,7 +140,49 @@ module.exports.post = async (req, res) => {
       res.send("Invalid file path");
     }
     if (!user_id) {
-      res.send("This is not proper id");
+      res.send("This is not proper user_id");
+      res.redirect("/");
+    } else {
+      const addPost = await retrieveAddPostSinglePhoto(
+        user_id,
+        club_id,
+        club_post_title,
+        post_content_text,
+        img_status,
+        img_url,
+        created_at
+      );
+      res.send(SUCCESS);
+    }
+  } catch (err) {
+    console.log("Error", err);
+  }
+};
+
+// 게시물 작성 (사진 포함 X)
+module.exports.post = async (req, res) => {
+  try {
+    const user_id = parseInt(req.body.user_id);
+    const club_id = parseInt(req.body.club_id);
+    const club_post_title = req.body.club_post_title;
+    const post_content_text = req.body.post_content_text;
+    const img_status = req.body.img_status;
+
+    // 현재 날짜 데이터
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const dateStr = year + "-" + month + "-" + day;
+    // 현재 시간 데이터
+    const hours = ("0" + date.getHours()).slice(-2);
+    const minutes = ("0" + date.getMinutes()).slice(-2);
+    const seconds = ("0" + date.getSeconds()).slice(-2);
+    const timeStr = hours + ":" + minutes + ":" + seconds;
+    const created_at = dateStr + " " + timeStr;
+
+    if (!user_id) {
+      res.send("This is not proper user_id");
       res.redirect("/");
     } else {
       const addPost = await retrieveAddPost(
@@ -153,7 +191,6 @@ module.exports.post = async (req, res) => {
         club_post_title,
         post_content_text,
         img_status,
-        img_url,
         created_at
       );
       res.send(SUCCESS);

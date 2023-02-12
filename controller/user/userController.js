@@ -24,7 +24,7 @@ const options = {
   privateKey
 };
 
-const appleAuth = appleAuth(options);
+const appleAuth = new AppleAuth(options);
 
 
 

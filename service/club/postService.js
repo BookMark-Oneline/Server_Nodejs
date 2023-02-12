@@ -6,6 +6,7 @@ const {
   registerAnnouncement,
   addComment,
   addPost,
+  addPostSinglePhoto,
   addCommentCount,
   addLikeCount,
   subLikeCount,
@@ -96,14 +97,39 @@ module.exports.retrieveAddCommentCount = async (club_post_id) => {
   return addCommentCountResult[0];
 };
 
-// 게시물 작성
-module.exports.retrieveAddPost = async (
+// 게시물 작성(사진 포함O)
+module.exports.retrieveAddPostSinglePhoto = async (
   user_id,
   club_id,
   club_post_title,
   post_content_text,
   img_status,
   img_url,
+  created_at
+) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const addPostResult = await addPostSinglePhoto(
+    connection,
+    user_id,
+    club_id,
+    club_post_title,
+    post_content_text,
+    img_status,
+    img_url,
+    created_at
+  );
+  connection.release();
+
+  return addPostResult[0];
+};
+
+// 게시물 작성(사진 포함X)
+module.exports.retrieveAddPost = async (
+  user_id,
+  club_id,
+  club_post_title,
+  post_content_text,
+  img_status,
   created_at
 ) => {
   const connection = await pool.getConnection(async (conn) => conn);
@@ -114,7 +140,6 @@ module.exports.retrieveAddPost = async (
     club_post_title,
     post_content_text,
     img_status,
-    img_url,
     created_at
   );
   connection.release();

@@ -32,6 +32,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "passport-apple": "^2.0.2",
+    "path": "^0.12.7",
     "redis": "^3.1.2",
     "redis-server": "^1.2.2",
     "regex-email": "^1.0.2",

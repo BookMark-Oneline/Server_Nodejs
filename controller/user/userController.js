@@ -2,17 +2,19 @@ require("dotenv").config();
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
 const regexEmail = require("regex-email");
-const {
-  findAlreadyUser,
-  userCheck,
-} = require("../../provider/user/userProvider");
+const { findAlreadyUser, userCheck } = require("../../provider/user/userProvider");
 const { createUser, postSignIn } = require("../../service/user/userService");
 const { appleSign } = require('../../dao/user/userDao');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const AppleAuth = require('apple-auth');
 const fs = require('fs');
-const appleKey = fs.readFileSync('./config/apple.json');
+const appleKey = require('./config/apple.json');
+const appleAuth = new AppleAuth(appleKey, path.join(__dirname, `../../config/apple${appleKey.private_key_path}`));
+
+
+
 
 module.exports.postRegister = async (req, res) => {
   const { name, user_name, email, introduce_message, password } = req.body;
@@ -73,7 +75,7 @@ try {
 
 
 
-const appleAuth = new AppleAuth(appleKey, fs.readFileSync('./config/AuthKey.p8').toString(), 'text');
+
 module.exports.authAppleLogin = async(req,res) => {
 
     try {

@@ -3,5 +3,6 @@
     "team_id": "9VUV5CNU2X",
     "key_id": "7LX56NGN23",
     "redirect_uri": "https://port-0-server-nodejs-1ih8d2gld1khslm.gksl2.cloudtype.app/apple/auth",
+    "private_key_path": "AuthKey.p8",
     "scope": "name email"
 }

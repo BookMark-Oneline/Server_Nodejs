@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
 const regexEmail = require("regex-email");
@@ -13,7 +14,7 @@ const fs = require('fs');
 //const appleKey = require('../../config/apple.json');
 //const appleAuth = new AppleAuth(appleKey, path.join(__dirname, `../../config/apple${appleKey.private_key_path}`));
 
-const clientId = APPLE_CLIENT_ID
+const clientId = process.env.APPLE_CLIENT_ID
 const privateKey = process.env.APPLE_PRIVATE_KEY_PATH;
 const keyId = process.env.APPLE_KEY_ID;
 const teamId = process.env.APPLE_TEAM_ID;
@@ -25,8 +26,7 @@ const options = {
   privateKey
 };
 
-const appleAuth = appleAuth(options);
-app.use(appleAuth.middleware());
+const appleAuth = new AppleAuth(options);
 
 module.exports.postRegister = async (req, res) => {
   const { name, user_name, email, introduce_message, password } = req.body;

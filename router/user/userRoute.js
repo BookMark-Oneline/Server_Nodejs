@@ -8,7 +8,6 @@ router.route('/login').post(postLogin);
 router.route('/register').post(postRegister)
 router.route('/logout').post(logout)
 router.get('/refresh', refresh);
-router.post('/apple/auth', authAppleLogin)
 
 
 module.exports = router;

@@ -6,10 +6,7 @@ const {
   userCheck,
 } = require("../../provider/user/userProvider");
 const { createUser, postSignIn } = require("../../service/user/userService");
-const { appleSign } = require('../../dao/user/userDao');
-const crypto = require('crypto');
-const jwt = require("../../auth/jwtMiddleware");
-const redisClient = require("../../config/redis");
+
 
 module.exports.postRegister = async (req, res) => {
   const { name, user_name, email, introduce_message, password } = req.body;
@@ -62,53 +59,6 @@ module.exports.postLogin = async (req, res) => {
       message: err.message,
     });
   }
-};
-
-const appleAuth = new AppleAuth(appleKey, fs.readFileSync('./config/AuthKey.p8').toString(), 'text');
-module.exports.authAppleLogin = async(req,res) => {
-
-    try {
-        
-        //authenticate our code we recieved from apple login with our key file
-        const response = await appleAuth.accessToken(req.body.code);
-
-        // decode our token
-        const idToken = jwt.decode(response.id_token);
-        
-        const user = {};
-        user.id = idToken.sub;
-        const id = user.id;
-
-        //extract email from idToken
-        if(idToke.email) user.email = idToken.email;
-        const email = user.email;
-
-        //check if user exists in the returned response from Apple
-        //Apple returns the user only once, so you might want to save their details
-        // in a database for future logins
-
-        if(req.body.user) {
-        
-        const { name } = JSON.parse(req.body.user);
-
-        user.name = name; // name = { firstname: , lastname: }
-        const username = name.lastname + name.firstname;
-        
-        const appleLoginUserInfo = await appleSign(id, username, email);
-        
-        // Respond with the user
-        return res.status(200).json({ appleLoginUserInfo })
-
-        } else {
-            // 회원 가입 되어있음
-            // idToken.sub 으로 회원 가입되어있는지 체크. 그래서 로그인 시킬지 말지 결정.
-            return { accessToken: 'testtoken', refreshToken: 'testRefresh' };
-
-        }
-
-    } catch (err) {
-        console.log("Err", err)
-    }
 };
 
 

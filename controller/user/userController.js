@@ -73,7 +73,7 @@ try {
 
 
 
-//const appleAuth = new AppleAuth(appleKey, fs.readFileSync('./config/AuthKey.p8').toString(), 'text');
+const appleAuth = new AppleAuth(appleKey, fs.readFileSync('./config/AuthKey.p8').toString(), 'text');
 module.exports.authAppleLogin = async(req,res) => {
 
     try {

@@ -112,13 +112,22 @@ module.exports.comment = async (req, res) => {
 
 // 게시물 작성
 module.exports.post = async (req, res) => {
+  console.log("req.file.location", req.file.location);
+
   try {
     const user_id = parseInt(req.body.user_id);
     const club_id = parseInt(req.body.club_id);
     const club_post_title = req.body.club_post_title;
     const post_content_text = req.body.post_content_text;
     const img_status = req.body.img_status;
-    const img_url = req.file.location;
+    if (req.file.location) {
+      // 이미지 있음
+      const img_url = req.file.location;
+    } else {
+      // 이미지 없음
+      const img_url = null;
+    }
+    console.log(img_url);
     // 현재 날짜 데이터
     const date = new Date();
     const year = date.getFullYear();

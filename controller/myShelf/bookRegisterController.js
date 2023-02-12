@@ -10,7 +10,7 @@ module.exports.registerBooks = async (req, res) => {
   try {
     const { user_id } = req.params;
     //const { title, author, publisher, img_url }  = req.body;
-    const { title, img_url, author, publisher, isbn } = req.body;
+    const { title, img_url, author, publisher, isbn, total_page } = req.body;
     if (!user_id) {
       res.send(response(baseResponse.USER_USERID_EMPTY));
     } else {
@@ -20,7 +20,8 @@ module.exports.registerBooks = async (req, res) => {
         img_url,
         author,
         publisher,
-        isbn
+        isbn,
+        total_page
       );
       console.log(registerResponse);
       return res.send(registerResponse);
@@ -29,8 +30,8 @@ module.exports.registerBooks = async (req, res) => {
     console.log("Error", err);
     //오류 메시지 반환.
     return res.status(500).json({
-      status: 'error',
-      message: err.message
-  });  }
+      status: "error",
+      message: err.message,
+    });
+  }
 };
-

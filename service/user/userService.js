@@ -9,7 +9,7 @@ const { insertNewUserInfo } = require('../../dao/user/userDao');
 const { userCheck,passwordCheck } = require('../../provider/user/userProvider');
 const { rejects } = require("assert");
 const { resolve } = require("path");
-const redisClient = require('../../config/redis');
+const { redisClient } = require('../../config/redis');
 
 module.exports.createUser = async (
     name, 
@@ -35,35 +35,35 @@ module.exports.createUser = async (
 
 
 module.exports.postSignIn = async(name, password) => {
-    
-
-        //아이디 존재 여부 확인.
+try {
+         //아이디 존재 여부 확인.
         const user = await userCheck(name);
-        if (user.length < 1) return errResponse(baseResponse.SIGNIN_EMAIL_WRONG);
+        if (!user) return errResponse(baseResponse.SIGNIN_EMAIL_WRONG);
+
 
         const selectName = user[0].name;
 
         //비밀번호 확인.
         const hashedPassword = await crypto.createHash("sha512")
         .update(password).digest("hex");
+
         const selectUserPasswordParams = [selectName, hashedPassword];
         const passswordRows = await passwordCheck(selectUserPasswordParams);
 
-        if(passswordRows.length < 1 ) {
+        if (passswordRows.password !== hashedPassword)
             return errResponse(baseResponse.SIGNIN_PASSWORD_WRONG);
-        }
 
-         // id,pw가 일치한다면,
-            //access token과 refresh token 발급.
-            const accessToken  = jwt.sign(user);
+
+        if(passswordRows) {
+            const accessToken = jwt.sign(user);
             const refreshToken = jwt.refresh();
-    
-            // 발급한 refresh token을 redis에 user_id를 key값으로 지정해 저장.
-            redisClient.set(user.id, refreshToken);
+
             
-            
-    return response(baseResponse.SUCCESS, { 'userId' : user[0].user_id, 'accessToken' : accessToken , 'refreshToken' : refreshToken});
+            redisClient.set(name, refreshToken)
+            return response(baseResponse.SUCCESS, {'userId': user[0].user_id, 'AccessToken': accessToken, 'refreshToken': refreshToken });
 
-
-
+        }
+    } catch(err) {
+        console.log(err);
+    }
 }

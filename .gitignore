@@ -1,3 +1,10 @@
 node_modules
 .env
 uploads
+AuthKey.p8
+apple.json
+./config/apple.json
+./uploads
+.vscode
+dump.rdb
+.DS_Store

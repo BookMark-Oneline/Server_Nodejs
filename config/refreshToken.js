@@ -2,15 +2,22 @@ require("dotenv").config();
 const { sign, verify, refreshVerify } = require('../auth/jwtMiddleware');
 const jwt = require('jsonwebtoken');
 
+
+
+
 const refresh = async (req,res) => {
+
+
      // access token과 refresh token의 존재 유무를 체크합니다.
     const authToken = req.headers.authorization.split('Bearer')[1];
     const refreshToken  = req.headers.refresh;
     if(req.headers.authorization && req.headers.refresh) {
       
+
+
       // < refresh 전제 조건 >
       const authResult = verify(authToken);
-        //  access token 검증 -> expired여야 함.
+        //  access token 검증 
         
         const decoded  = jwt.decode(authToken);
         // access token 디코딩하여 user의 정보를 가져옵니다.

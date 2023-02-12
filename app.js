@@ -10,14 +10,13 @@ const searchBookRouter = require("./router/myShelf/searchBook");
 const timerRouter = require("./router/myShelf/timerRoute");
 const bookRegisterRouter = require("./router/myShelf/bookRegisterRouter");
 const bookDeleteRouter = require("./router/myShelf/bookDeleteRouter");
-
-const postRouter = require("./router/club/postRoute");
-
-const clubRouter = require("./router/club/clubRoute");
-const userRouter = require("./router/user/userRoute");
-
+const clubRouter = require('./router/club/clubRoute');
+const postRouter = require('./router/club/postRoute');
+const userRouter = require('./router/user/userRoute');
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
+
+
 
 //해당 미들웨어가 사이트로 들어오는 모두를 기억.
 app.use(
@@ -53,8 +52,11 @@ app.use("/search", searchBookRouter);
 app.use("/timer", timerRouter);
 app.use("/register", bookRegisterRouter);
 app.use("/delete", bookDeleteRouter);
+app.use("/club", clubRouter);
 app.use("/club/post", postRouter);
 app.use("/", userRouter);
 app.use("/club", clubRouter);
 
 module.exports = app;
+
+

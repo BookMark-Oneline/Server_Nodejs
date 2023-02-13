@@ -12,7 +12,7 @@ module.exports.findClubSetting = async (req,res) => {
         if(clubSetting.length < 1) {
             return res.status(400).json({ message: "A club with this club_id does not exist." })
         } else {
-            set(req.originalUrl, clubSetting )
+           // set(req.originalUrl, clubSetting )
             return res.status(200).json({ clubData: clubSetting });
         }
         

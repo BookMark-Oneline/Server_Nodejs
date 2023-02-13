@@ -11,7 +11,7 @@ const {
   postJoinRequest,
 } = require("../../controller/club/clubController");
 const imgUpload = require("../../utils/imageUploader");
-const { redisGet } = require("../../config/redis");
+//const { redisGet } = require("../../config/redis");
 const {
   clubSearch,
   clubMember,
@@ -23,7 +23,7 @@ const {
 // Redis Cache.
 //const { get } = require('../../utils/cache');
 
-router.route("/setting/:club_id").get(redisGet, findClubSetting);
+router.route("/setting/:club_id").get(findClubSetting);
 router.route("/register").post(imgUpload.single("club_img_url"), postNewClub);
 router
   .route("/setting/edit/:club_id")

@@ -7,8 +7,8 @@ const {
   retrieveDataDetail,
   retrieveUserData,
 } = require("../../provider/myShelf/shelfProvider");
-const { set } = require("../../config/redis");
-const redisClient = require("../../config/redis");
+//const { set } = require("../../config/redis");
+//const redisClient = require("../../config/redis");
 
 // /shelf/:user_id  -> 서재 내 모든 책들 조회 API
 module.exports.findMyAllBooks = async (req, res) => {

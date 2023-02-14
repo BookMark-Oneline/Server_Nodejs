@@ -15,7 +15,7 @@ module.exports.insertNewUserInfo = async(connection, insertUserInfoParams) => {
     const insertNewUserInfoQuery = `
     INSERT 
     INTO UserInfo 
-    (name, user_name, email, introduce_message, password) 
+    (user_name, img_url, introduce_message, goal, access_token) 
     VALUES (?,?,?,?,?);`;
     const [insertNewUserInfoRow] = await connection.query(insertNewUserInfoQuery,
         insertUserInfoParams);

@@ -45,11 +45,11 @@ module.exports.selectUserPassword = async(connection, selectUserPasswordParams) 
 }
 
 
-module.exports.appleSign = async(connection, id, username, email) => {
-    const inserNewAppleUserQuery = `INSERT INTO UserInfo (user_id, username, email) VALUES(?,?,?);`;
-    const [inserNewAppleUserInfoRow] = await connection.query(insertNewUserInfoQuery,
-        [id,username,email]);
+module.exports.selectAlreadyUserHasAccessToken = async(connection, access_token) => {
+    const selectAlreadayUserHasTokenQuery = `SELECT user_id FROM UserInfo WHERE access_token=?;`;
+    const [selectUser] = await connection.query(selectAlreadayUserHasTokenQuery,
+        access_token);
     
-    return inserNewAppleUserInfoRow;
+    return selectUser;
 
 }

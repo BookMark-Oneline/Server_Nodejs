@@ -1,5 +1,5 @@
 const { retrieveClubSetting, findClub, findUser, retrieveRequestingMembers } = require("../../provider/club/clubProvider");
-const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus } = require("../../service/club/clubService");
+const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus, insertOwnerInClub } = require("../../service/club/clubService");
 const { clubSearch, clubMember, retrieveAnnouncementResponse, retrievePostResponse, userBelong } = require("../../provider/club/clubProvider");
 const baseResponse = require("../../config/baseResponse");
 
@@ -71,11 +71,11 @@ module.exports.postEditClubSetting = async(req,res) => {
 
 }
 
-//새로운 클럽 생성.
 module.exports.postNewClub = async (req,res) => {
     //const club_owner_id = req.session.user._id;
     // 로그인 기능 구현 후.
     try {
+    const { club_id } = req.params;
     const { club_name, club_invite_option, max_people_num, club_owner_id } = req.body;
     if(!req.file) {
         return res.status(400).json({ message: " club_img_url is required " })
@@ -91,13 +91,15 @@ module.exports.postNewClub = async (req,res) => {
     // file(이미지)가 존재하면 원격 서버인지 확인 후 맞으면 file.location 을 확인하며,
     // 로컬에서 작동 시에는 file.path 확인.
     // 마지막으로 파일 자체가 없으면 club_img_url 확인.
+    const owner = await insertOwnerInClub(club_owner_id, club_id);
+
     const newClub = await createClub(
         club_name, 
         club_img_url,
         club_invite_option, 
         max_people_num,
         club_owner_id);
-    return res.status(200).json({ newClubData : newClub })
+    return res.status(200).json({ newClubData : newClub})
 
     } catch (err) {
         console.log("Err", err);

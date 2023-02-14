@@ -11,6 +11,15 @@ module.exports.findAlreadyUser = async (user_name,email) => {
 
 }
 
+module.exports.findAlreadyUserHasAccessToken = async(access_token) => {
+    const connection = await pool.getConnection(async coon => coon);
+    const AlreadyUserHasAccessTokenResult = await selectAlreadyUserHasAccessToken(connection, access_token);
+    connection.release();
+    return AlreadyUserHasAccessTokenResult
+
+}
+
+
 
 module.exports.userCheck = async (name) =>{
     const connection = await pool.getConnection(async conn => conn);

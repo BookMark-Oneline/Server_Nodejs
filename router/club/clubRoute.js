@@ -24,7 +24,7 @@ const {
 //const { get } = require('../../utils/cache');
 
 router.route("/setting/:club_id").get(findClubSetting);
-router.route('/register/:club_id').post(imgUploader.single("club_img_url"), postNewClub);
+router.route('/register').post(imgUploader.single("club_img_url"), postNewClub);
 router
   .route("/setting/edit/:club_id")
   .post(imgUploader.single("club_img_url"), postEditClubSetting);

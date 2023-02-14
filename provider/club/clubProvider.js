@@ -108,3 +108,13 @@ exports.clubSearch = async (club_id) => {
 
   return clubSearchResult;
 };
+
+
+module.exports.findClubId = async() => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const club = await findMyClub(connection);
+  connection.release();
+  
+  return club;
+
+}

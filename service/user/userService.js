@@ -12,15 +12,16 @@ const { resolve } = require("path");
 const { redisClient } = require('../../config/redis');
 
 module.exports.createUser = async (
-    name, 
-    user_name, 
-    email, 
-    introduce_message, 
-    password) => {
+    user_name,
+    img_url,
+    introduce_message,
+    goal,
+    access_token,
+    ) => {
 
-        const hashedPassword = await crypto.createHash("sha512").update(password).digest("hex");
+     //   const hashedPassword = await crypto.createHash("sha512").update(password).digest("hex");
 
-        const insertUserInfoParams = [name, user_name, email, introduce_message, hashedPassword]
+        const insertUserInfoParams = [user_name, img_url, introduce_message, goal, access_token]
 
         const connection = await pool.getConnection(async (conn) => conn);
 
@@ -32,6 +33,7 @@ module.exports.createUser = async (
 
 
 }
+
 
 
 module.exports.postSignIn = async(name, password) => {

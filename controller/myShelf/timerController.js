@@ -115,7 +115,7 @@ module.exports.finishTimer = async (req, res) => {
                 streak
               );
             } else {
-              pass;
+              //pass;
               // console.log(
               //   "last_cal이 어제 날짜랑 다름. 오늘부터 연속시작 streak 1로"
               // );

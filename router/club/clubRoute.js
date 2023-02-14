@@ -10,7 +10,7 @@ const {
   declineToJoinRequest,
   postJoinRequest,
 } = require("../../controller/club/clubController");
-const imgUpload = require("../../utils/imageUploader");
+const imgUploader = require("../../utils/imageUploader");
 //const { redisGet } = require("../../config/redis");
 const {
   clubSearch,
@@ -27,7 +27,7 @@ router.route("/setting/:club_id").get(findClubSetting);
 router.route('/register/:club_id').post(imgUploader.single("club_img_url"), postNewClub);
 router
   .route("/setting/edit/:club_id")
-  .post(imgUpload.single("club_img_url"), postEditClubSetting);
+  .post(imgUploader.single("club_img_url"), postEditClubSetting);
 router.route("/members/request/:club_id").get(findRequestingMembers);
 router.route("/request/:club_id").post(postJoinRequest);
 router.route("/members/approval/:user_id").post(approvalToJoinRequest);

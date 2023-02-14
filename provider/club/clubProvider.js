@@ -12,6 +12,7 @@ const {
   clubMember,
   clubSearch,
   userBelong,
+  findMyClub
 } = require("../../dao/club/clubDao");
 
 const { errResponse, response } = require("../../config/response");

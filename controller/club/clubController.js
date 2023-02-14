@@ -1,5 +1,5 @@
 const { retrieveClubSetting, findClub, findUser, retrieveRequestingMembers } = require("../../provider/club/clubProvider");
-const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus, insertOwnerInClub, insertOwnerInClub } = require("../../service/club/clubService");
+const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus, insertOwnerInClub } = require("../../service/club/clubService");
 const { clubSearch, clubMember, retrieveAnnouncementResponse, retrievePostResponse, userBelong, findClubId} = require("../../provider/club/clubProvider");
 const baseResponse = require("../../config/baseResponse");
 

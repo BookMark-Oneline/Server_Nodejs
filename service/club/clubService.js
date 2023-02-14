@@ -1,7 +1,7 @@
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
 const pool = require('../../config/database');
-const { updateClubSettingInfo, insertClubInfo, insertUserRequest, updateUserStatusInfo, deleteUserStatusInfo } = require('../../dao/club/clubDao');
+const { updateClubSettingInfo, insertClubInfo, insertUserRequest, updateUserStatusInfo, deleteUserStatusInfo, insertOwnerClubInfo } = require('../../dao/club/clubDao');
 // const { clubRequest } = require("../../dao/club/clubDao");
 // const { errResponse, response } = require("../../config/response");
 // const baseResponse = require("../../config/baseResponse");
@@ -74,6 +74,15 @@ module.exports.deleteUserStatus = async(user_id, club_id) => {
     connection.release();
     return response(baseResponse.SUCCESS); 
 
+}
+
+module.exports.insertOwnerInClub = async(club_owner_id, club_id) => {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const insertOwnerClubResult = await insertOwnerClubInfo(connection, [club_owner_id, club_id])
+    connection.release();
+    return insertOwnerClubResult;
+
+    
 }
 
 

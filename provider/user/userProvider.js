@@ -1,5 +1,5 @@
 const pool = require('../../config/database');
-const { selectAlreadyUser,  selectUser, selectUserPassword} = require('../../dao/user/userDao');
+const { selectAlreadyUser,  selectUser, selectUserPassword, selectAlreadyUserHasAccessToken } = require('../../dao/user/userDao');
 
 module.exports.findAlreadyUser = async (user_name,email) => {
     const selectAlreadyUserInfoParams = [user_name, email];

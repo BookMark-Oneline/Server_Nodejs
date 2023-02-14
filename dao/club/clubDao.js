@@ -150,3 +150,16 @@ module.exports.clubSearch = async (connection, [club_id]) =>{
     
     return clubSearchRow[0];
 }
+
+module.exports.insertOwnerClubInfo = async(connection, [club_owner_id, club_id]) => {
+    const InsertOwnerInClubQuery = `INSERT INTO ClubMember (user_id, club_id, is_member) VALUES(?,?,?);`;
+    const onwerResult = await connection.query(InsertOwnerInClubQuery,  [club_owner_id, club_id, 1]);
+    return onwerResult
+}
+
+module.exports.findMyClub = async(connection) => {
+    const clubQuery = `SELECT * FROM ClubInfo WHERE club_id = (SELECT max(club_id) FROM ClubInfo) `;
+    const clubResult =  await connection.query(clubQuery);
+
+    return clubResult[0]
+}

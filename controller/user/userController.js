@@ -91,7 +91,7 @@ module.exports.authAppleLogin = async(req,res) => {
         const id = user.id;
 
         //extract email from idToken
-        if(idToke.email) user.email = idToken.email;
+        if(idToken.email) user.email = idToken.email;
         const email = user.email;
 
         //check if user exists in the returned response from Apple

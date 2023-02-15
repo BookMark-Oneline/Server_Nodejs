@@ -93,10 +93,10 @@ module.exports.addPostSinglePhoto = async (
   club_post_title,
   post_content_text,
   img_status,
-  img_url,
+  post_img_url,
   created_at
 ) => {
-  const addPostQuery = `INSERT INTO ClubPost (club_id, club_post_title, writer_id, post_content_text, img_status, like_num, comment_num, img_url, created_at) VALUES (?,?,?,?,?,?,?,?,?);`;
+  const addPostQuery = `INSERT INTO ClubPost (club_id, club_post_title, writer_id, post_content_text, img_status, like_num, comment_num, post_img_url, created_at) VALUES (?,?,?,?,?,?,?,?,?);`;
   const addPostRow = await connection.query(addPostQuery, [
     club_id,
     club_post_title,
@@ -105,7 +105,7 @@ module.exports.addPostSinglePhoto = async (
     img_status,
     0,
     0,
-    img_url,
+    post_img_url,
     created_at,
   ]);
   return addPostRow[0];
@@ -137,7 +137,7 @@ module.exports.addPost = async (
 
 // 게시물 상세보기
 module.exports.viewPost = async (connection, club_post_id) => {
-  const viewPostQuery = `select P.club_post_id, P.club_post_title, P.img_status, P.img_url, P.post_content_text, U.user_id, U.user_name, P.like_num, P.comment_num from ClubPost as P JOIN UserInfo as U on P.writer_id = U.user_id where P.club_post_id = ?;`;
+  const viewPostQuery = `select P.club_post_id, P.club_post_title, P.img_status, P.post_img_url, P.post_content_text, U.user_id, U.img_url, U.user_name, P.like_num, P.comment_num from ClubPost as P JOIN UserInfo as U on P.writer_id = U.user_id where P.club_post_id = ?;`;
   const viewPostRow = await connection.query(viewPostQuery, club_post_id);
 
   return viewPostRow[0];

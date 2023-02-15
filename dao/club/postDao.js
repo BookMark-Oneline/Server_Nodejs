@@ -93,7 +93,7 @@ module.exports.addPostSinglePhoto = async (
   club_post_title,
   post_content_text,
   img_status,
-  img_url,
+  post_img_url,
   created_at
 ) => {
   const addPostQuery = `INSERT INTO ClubPost (club_id, club_post_title, writer_id, post_content_text, img_status, like_num, comment_num, post_img_url, created_at) VALUES (?,?,?,?,?,?,?,?,?);`;
@@ -105,7 +105,7 @@ module.exports.addPostSinglePhoto = async (
     img_status,
     0,
     0,
-    img_url,
+    post_img_url,
     created_at,
   ]);
   return addPostRow[0];

@@ -1,6 +1,6 @@
 module.exports.selectAlreadyUser = async(connection, selectAlreadyUserInfoParams) => {
     const selectAlreadyUserInfoQuery = `
-    SELECT * FROM UserInfo WHERE user_name=? AND email=?;`;
+    SELECT * FROM UserInfo WHERE user_name=?;`;
     
     const [selectAlreadyUserInfoRow]= await connection.query(
         selectAlreadyUserInfoQuery, 
@@ -32,7 +32,7 @@ module.exports.selectUser = async (connection, name) => {
 
 module.exports.selectUserPassword = async(connection, selectUserPasswordParams) => {
     const selectUserPasswordQuery = `
-    SELECT email, user_name, password
+    SELECT user_name, password
     FROM UserInfo 
     WHERE name = ? AND password = ?;`;
     

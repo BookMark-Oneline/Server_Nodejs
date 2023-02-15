@@ -1,9 +1,6 @@
 node_modules
 .env
-uploads
-AuthKey.p8
-./config/apple.json
-./uploads
+uploads/club
 .vscode
 dump.rdb
 .DS_Store

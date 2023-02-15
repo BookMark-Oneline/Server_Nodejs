@@ -104,7 +104,7 @@ module.exports.retrieveAddPostSinglePhoto = async (
   club_post_title,
   post_content_text,
   img_status,
-  post_img_url,
+  img_url,
   created_at
 ) => {
   const connection = await pool.getConnection(async (conn) => conn);
@@ -115,7 +115,7 @@ module.exports.retrieveAddPostSinglePhoto = async (
     club_post_title,
     post_content_text,
     img_status,
-    post_img_url,
+    img_url,
     created_at
   );
   connection.release();

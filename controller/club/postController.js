@@ -121,9 +121,9 @@ module.exports.post_singlephoto = async (req, res) => {
     const club_post_title = req.body.club_post_title;
     const post_content_text = req.body.post_content_text;
     const img_status = req.body.img_status;
-    const img_url = req.file.location;
+    const post_img_url = req.file.location;
 
-    console.log(img_url);
+    console.log(post_img_url);
     // 현재 날짜 데이터
     const date = new Date();
     const year = date.getFullYear();
@@ -136,7 +136,7 @@ module.exports.post_singlephoto = async (req, res) => {
     const seconds = ("0" + date.getSeconds()).slice(-2);
     const timeStr = hours + ":" + minutes + ":" + seconds;
     const created_at = dateStr + " " + timeStr;
-    if (!img_url) {
+    if (!post_img_url) {
       res.send("Invalid file path");
     }
     if (!user_id) {
@@ -149,7 +149,7 @@ module.exports.post_singlephoto = async (req, res) => {
         club_post_title,
         post_content_text,
         img_status,
-        img_url,
+        post_img_url,
         created_at
       );
       res.send(SUCCESS);

@@ -16,19 +16,14 @@ module.exports.findMyAllBooks = async (req, res) => {
     const { user_id } = req.params;
 
     const Book = await retrieveBookList(user_id);
-    if (Book.length === 0) {
-      return res.status(404).json({
-        status: "error",
-        message: "Invalid book_id",
-      });
-    } else {
+   
       // 유저 데이터
-      const User = await retrieveUserData(user_id);
+     const User = await retrieveUserData(user_id);
 
-      console.log(Object.assign({ User }, { Book }));
-      result = Object.assign({ User }, { Book });
-      res.send(result);
-    }
+     console.log(Object.assign({ User }, { Book }));
+     result = Object.assign({ User }, { Book });
+     res.send(result);
+    
   } catch (err) {
     console.log("Error", err);
     //오류 메시지 반환.

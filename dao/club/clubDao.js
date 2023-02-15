@@ -163,3 +163,19 @@ module.exports.findMyClub = async(connection) => {
 
     return clubResult[0]
 }
+
+
+module.exports.findMyClubCondition = async(connection, [club_id]) => {
+    const clubConditionQuery = `SELECT club_invite_option FROM ClubInfo WHERE club_id=?;`;
+    const clubCondtionResult =  await connection.query(clubConditionQuery, [club_id]);
+
+    return clubCondtionResult[0]
+}
+
+module.exports.insertUserDirectly = async(connection, [club_id,user_id]) => {
+    const InsertUserInClubDirectlyQuery = `INSERT INTO ClubMember (club_id, user_id, is_member) VALUES(?,?,?);`;
+    const JoinResult = await connection.query(InsertUserInClubDirectlyQuery,  [club_id, user_id, 1]);
+
+    return JoinResult[0]
+
+}

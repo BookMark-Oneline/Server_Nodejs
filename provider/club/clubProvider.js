@@ -12,7 +12,8 @@ const {
   clubMember,
   clubSearch,
   userBelong,
-  findMyClub
+  findMyClub,
+  findMyClubCondition
 } = require("../../dao/club/clubDao");
 
 const { errResponse, response } = require("../../config/response");
@@ -116,5 +117,14 @@ module.exports.findClubId = async() => {
   connection.release();
   
   return club;
+
+}
+
+
+module.exports.findClubCondition = async(club_id) => {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const clubCondition = await findMyClubCondition(connection, [club_id]);
+  connection.release();
+  return clubCondition;
 
 }

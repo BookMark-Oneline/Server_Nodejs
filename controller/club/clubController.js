@@ -1,6 +1,6 @@
 const { retrieveClubSetting, findClub, findUser, retrieveRequestingMembers } = require("../../provider/club/clubProvider");
-const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus, insertOwnerInClub } = require("../../service/club/clubService");
-const { clubSearch, clubMember, retrieveAnnouncementResponse, retrievePostResponse, userBelong, findClubId} = require("../../provider/club/clubProvider");
+const { editClubSetting, createClub, updateUserStatus,createUserRequest, deleteUserStatus, insertOwnerInClub, userJoinDirectly } = require("../../service/club/clubService");
+const { clubSearch, clubMember, retrieveAnnouncementResponse, retrievePostResponse, userBelong, findClubId, findClubCondition} = require("../../provider/club/clubProvider");
 const baseResponse = require("../../config/baseResponse");
 
 // const { clubRequest } = require("../../service/club/clubService");
@@ -174,12 +174,29 @@ module.exports.postJoinRequest = async(req,res) => {
         
         // 유저,클럽 모두 존재 시 가입 요청 전송.
         if(user.length > 0 && club.length > 0 ) {
-            const userRequestResult = await createUserRequest(club_id, user_id);
+
+            const clubCondition = await findClubCondition(club_id);
+            console.log((typeof(clubCondition[0].club_invite_option)))
+
+            const everybody = clubCondition[0].club_invite_option
+
+            console.log(everybody);
+
+            if (clubCondition.length > 0 && everybody.includes('모두허용'))
+            {
+                const userJoin = await userJoinDirectly(club_id, user_id)
+                console.log(userJoin)
+                return res.status(200).json({ message: "Joined Directly !" })
+
+            } else {
+
+           const userRequestResult = await createUserRequest(club_id, user_id);
             if(!userRequestResult) {
                 return res.status(404).json({ message: 'Failed to send join request'})
             }
             return res.status(200).json({ message: ' Join request sent successfully !'})
         }
+    }
         
     } catch(err) {
         console.log("Err", err);

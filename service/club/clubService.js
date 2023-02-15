@@ -1,7 +1,9 @@
 const { errResponse, response } = require("../../config/response");
 const baseResponse = require("../../config/baseResponse");
 const pool = require('../../config/database');
-const { updateClubSettingInfo, insertClubInfo, insertUserRequest, updateUserStatusInfo, deleteUserStatusInfo, insertOwnerClubInfo } = require('../../dao/club/clubDao');
+const { updateClubSettingInfo, insertClubInfo, 
+    insertUserRequest, updateUserStatusInfo, 
+    deleteUserStatusInfo, insertOwnerClubInfo, insertUserDirectly } = require('../../dao/club/clubDao');
 // const { clubRequest } = require("../../dao/club/clubDao");
 // const { errResponse, response } = require("../../config/response");
 // const baseResponse = require("../../config/baseResponse");
@@ -85,6 +87,13 @@ module.exports.insertOwnerInClub = async(club_owner_id, club_id) => {
     
 }
 
+module.exports.userJoinDirectly = async(club_id, user_id) => {
+    const connection = await pool.getConnection(async (conn) => conn);
+    const insertUserClubDirectlyResult = await insertUserDirectly(connection, [club_id, user_id])
+    connection.release();
+    return insertUserClubDirectlyResult;
+
+}
 
 
 // // Service: Create, Update, Delete 비즈니스 로직 처리
